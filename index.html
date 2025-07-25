@@ -1,0 +1,187 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edw4rds Inc. | Home</title>
+  <!-- Preload CSS for performance -->
+  <link rel="preload" href="styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="styles.css" /></noscript>
+  <style>
+    /* Mobile-first responsive styles */
+    img { max-width: 100%; height: auto; display: block; }
+
+    /* Navigation stacking */
+    header nav ul {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem 0;
+      list-style: none;
+    }
+    header nav ul li + li { margin-top: 0.5rem; }
+    @media (min-width: 768px) {
+      header nav ul {
+        flex-direction: row;
+        justify-content: center;
+      }
+      header nav ul li + li {
+        margin-top: 0;
+        margin-left: 1.5rem;
+      }
+    }
+
+    /* Build grid responsive */
+    .build-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    @media (min-width: 640px) {
+      .build-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1024px) {
+      .build-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    /* Section padding */
+    section {
+      padding: 2rem 1rem;
+    }
+    @media (min-width: 768px) {
+      section { padding: 4rem 2rem; }
+    }
+
+    /* CTA button tap targets */
+    .btn, .btn-outline {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      margin-top: 1rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="index.html" data-nav="home">Home</a></li>
+        <li><a href="about.html" data-nav="about">About</a></li>
+        <li><a href="services.html" data-nav="services">Services</a></li>
+        <li><a href="contact.html" data-nav="contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <!-- Hero -->
+    <section id="hero">
+      <h1>M4DE TO ELEV4TE — Without Losing What Matters Most</h1>
+      <img src="pros-in-a-balloon.png" alt="Hot-air balloon carrying professional icons" loading="lazy" />
+      <p>You didn’t start your business just to stay busy. You started it because something in you shifted — a story, a calling, a sense of purpose too important to ignore.</p>
+      <p>At Edw4rds Inc., we help small business owners scale with intention. We build brands, websites, and automations that protect your purpose — so you can grow your impact without burning out.</p>
+      <p>
+        <a href="contact.html" class="btn" data-cta="book-story-call">Start With a Story Call</a>
+        <a href="#what-we-build" class="btn-outline" data-cta="see-what-we-build">See What We Build</a>
+      </p>
+    </section>
+
+    <!-- Your Why -->
+    <section id="your-why">
+      <h2>Your Why Comes First</h2>
+      <img src="family-campfire.png" alt="Family around a campfire" loading="lazy" />
+      <p>Before we talk tech or timelines, we talk about you. That first conversation is where we listen — to the moment everything changed, the dream behind the work, and the life you want to build around it.</p>
+      <p>Because if we don’t understand why you started, we can’t help you grow in a way that feels aligned. We’re not here to turn your mission into a marketing funnel. We’re here to build a business that honors it.</p>
+    </section>
+
+    <!-- What We Build -->
+    <section id="what-we-build">
+      <h2>What We Build (After We Listen)</h2>
+      <img src="e4-toolbox.png" alt="Toolbox containing strategy, branding, and automation icons" loading="lazy" />
+      <div class="build-grid">
+        <!-- Strategy -->
+        <div class="build-item">
+          <h3>💡 Strategy</h3>
+          <ul>
+            <li>Offers that align with your calling</li>
+            <li>Messaging that feels like you — and connects deeply</li>
+            <li>Clear steps to grow without chaos</li>
+          </ul>
+        </div>
+        <!-- Branding + Website -->
+        <div class="build-item">
+          <h3>🎨 Branding + Website</h3>
+          <ul>
+            <li>A visual identity rooted in who you are</li>
+            <li>Landing pages and websites that build trust and drive action</li>
+            <li>Copy that speaks from the heart</li>
+          </ul>
+        </div>
+        <!-- Automation -->
+        <div class="build-item">
+          <h3>⚙️ Automation</h3>
+          <ul>
+            <li>Lead capture + follow-up (no more lost leads)</li>
+            <li>Booking flows + reminders (no more manual back-and-forth)</li>
+            <li>Client onboarding, re-engagement, and nurture</li>
+            <li>AI bots + chat workflows</li>
+            <li>HIPAA-compliant builds for wellness professionals</li>
+          </ul>
+        </div>
+      </div>
+      <p>These aren’t just tools — they’re how we protect your time, your energy, and your original intent.</p>
+    </section>
+
+    <!-- Impact -->
+    <section id="impact">
+      <h2>M4DE TO ELEV4TE IMPACT. BUILT TO PROTECT PURPOSE.</h2>
+      <img src="robots-co-laboring.png" alt="Robots and humans collaborating side by side" loading="lazy" />
+      <p>Automation isn’t just about efficiency. It’s about freedom.</p>
+      <ul>
+        <li>Freedom to rest</li>
+        <li>Freedom to stay focused on the people you serve</li>
+        <li>Freedom to build something sustainable, not sacrificial</li>
+      </ul>
+      <p>We believe the best systems don’t replace your humanity — they support it.</p>
+    </section>
+
+    <!-- How We Work Together -->
+    <section id="process">
+      <h2>How We Work Together</h2>
+      <img src="crossing-the-bridge.png" alt="Bridge labeled Story, Strategy, Build, Launch with guide and client walking" loading="lazy" />
+      <ol>
+        <li><strong>The Story Call</strong><br>We start with your why — and really listen.</li>
+        <li><strong>The Strategy</strong><br>We co-create your message, offers, and growth path.</li>
+        <li><strong>The Build</strong><br>We bring it all to life — site, systems, and brand — with you at the center.</li>
+        <li><strong>The Launch</strong><br>You go live with a business built for clarity, consistency, and capacity. And we stay in your corner as you grow.</li>
+      </ol>
+    </section>
+
+    <!-- Video or Testimonials Placeholder -->
+    <section id="testimonials" hidden>
+      <!-- Coming soon: client testimonials and case studies -->
+    </section>
+
+    <!-- CTA -->
+    <section id="cta">
+      <h2>Start With the Story</h2>
+      <img src="sam-chat.png" alt="Sam talking with a client over chat" loading="lazy" />
+      <p>Let’s talk about what moved you to do this work — and how to grow it without losing yourself in the process.</p>
+      <a href="contact.html" class="btn" data-cta="book-story-call">Book the Story Call</a>
+      <p class="small">It’s free, it’s not a pitch — and it might be the first time someone built a strategy around your why.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Edw4rds Inc. All rights reserved.</p>
+  </footer>
+
+  <!-- Analytics & Event Tracking -->
+  <script>
+    // TODO: Initialize analytics; track CTA clicks via data-cta attributes
+  </script>
+</body>
+</html>
+```
+
