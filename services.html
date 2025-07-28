@@ -1,1 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About | Edw4rds Inc.</title>
+    
+    <!-- Google Fonts: Rajdhani for headings, Inter for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- AOS (Animate On Scroll) Library for animations -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+    <style>
+        /* ---------------------------------- */
+        /* 1. Variables & Base Styles         */
+        /* ---------------------------------- */
+        :root {
+            --color-teal:   #2CA58D;
+            --color-slate:  #374151;
+            --color-light:  #F5F8FA;
+            --color-white:  #FFFFFF;
+            --color-accent: #FFC857;
+            --border-radius-soft: 8px;
+            --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--color-white);
+            color: var(--color-slate);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: var(--border-radius-soft);
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--color-teal);
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: var(--color-accent);
+        }
+
+        /* ---------------------------------- */
+        /* 2. Typography                      */
+        /* ---------------------------------- */
+        h1, h2, h3 {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            color: var(--color-slate);
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            color: var(--color-white);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 60px;
+            height: 4px;
+            background-color: var(--color-accent);
+            border-radius: 2px;
+        }
+        
+        h2.text-center::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: var(--color-teal);
+        }
+
+        p, li {
+            margin-bottom: 1rem;
+            max-width: 65ch;
+        }
+        
+        ul, ol {
+            padding-left: 1.25rem;
+        }
+
+        /* ---------------------------------- */
+        /* 3. Header & Navigation             */
+        /* ---------------------------------- */
+        header {
+            background-color: var(--color-white);
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        header nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            gap: 2rem;
+        }
+
+        header nav ul li a {
+            color: var(--color-slate);
+            font-weight: 600;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        header nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--color-accent);
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.3s ease;
+        }
+
+        header nav ul li a:hover::after,
+        header nav ul li a.active::after {
+            transform: scaleX(1);
+        }
+        
+        header nav ul li a.active,
+        header nav ul li a:hover {
+            color: var(--color-slate);
+        }
+
+        /* ---------------------------------- */
+        /* 4. Section & Layout Styling        */
+        /* ---------------------------------- */
+        section {
+            padding: 4rem 1.5rem;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .container-wide {
+             max-width: 1200px;
+             margin: 0 auto;
+        }
+
+        section:nth-of-type(odd) { background-color: var(--color-white); }
+        section:nth-of-type(even) { background-color: var(--color-light); }
+
+        .content-box {
+            background-color: var(--color-white);
+            padding: 2rem;
+            border: 1px solid #e5e7eb;
+            border-radius: var(--border-radius-soft);
+            box-shadow: var(--shadow-light);
+        }
+
+        .textured-bg {
+            position: relative;
+        }
+        .textured-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle fill='%23D1D5DB' cx='10' cy='10' r='1'/%3E%3C/svg%3E");
+            opacity: 0.3;
+            z-index: 0;
+        }
+        .textured-bg > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .grid-2col {
+            display: grid;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .grid-2col {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (min-width: 1024px) {
+            section {
+                padding: 6rem 2rem;
+            }
+        }
+
+        /* ---------------------------------- */
+        /* 5. Hero Section                    */
+        /* ---------------------------------- */
+        .hero {
+            padding: 8rem 1.5rem;
+            position: relative;
+            /* UPDATED: Added !important to force the background color */
+            background-color: var(--color-slate) !important;
+            color: var(--color-white);
+            text-align: center;
+            overflow: hidden; /* Important to contain the animated balloons */
+        }
+        
+        .hero .container {
+             z-index: 2; /* Ensures text is above balloons */
+             position: relative;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='4' cy='4' r='1' fill='%23ffffff' fill-opacity='0.2'/%3E%3C/svg%3E");
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: clamp(3rem, 6vw, 4.5rem);
+        }
+        
+        .hero-subtitle {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.5rem;
+            color: rgba(255,255,255,0.9);
+            max-width: 60ch;
+            margin: -1rem auto 0 auto;
+            font-weight: 600;
+            padding-bottom: 0;
+        }
+        .hero-subtitle::after {
+            display: none;
+        }
+        
+        .hero-balloons-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .balloon {
+            position: absolute;
+            opacity: 0.2;
+            animation: float 20s infinite ease-in-out;
+            bottom: -200px; /* Start off-screen */
+        }
+
+        .balloon:nth-child(1) {
+            width: 80px; left: 10%;
+            animation-duration: 25s;
+        }
+        .balloon:nth-child(2) {
+            width: 120px; left: 35%;
+            filter: brightness(0) invert(1); /* Makes SVG white */
+            animation-duration: 20s; animation-delay: 5s;
+        }
+        .balloon:nth-child(3) {
+            width: 60px; left: 70%;
+            animation-duration: 30s; animation-delay: 2s;
+        }
+        .balloon:nth-child(4) {
+            width: 150px; left: 85%;
+            filter: brightness(0) invert(1); /* Makes SVG white */
+            animation-duration: 18s; animation-delay: 8s;
+        }
+        .balloon:nth-child(5) {
+            width: 50px; left: 50%;
+            animation-duration: 35s; animation-delay: 12s;
+        }
+
+        @keyframes float {
+            from {
+                transform: translateY(0) rotate(0deg);
+            }
+            to {
+                transform: translateY(-120vh) rotate(360deg);
+            }
+        }
+
+        .background-balloon {
+            position: absolute;
+            top: -80px;
+            right: -100px;
+            width: 400px;
+            opacity: 0.07;
+            z-index: 0;
+            transform: rotate(15deg);
+            pointer-events: none;
+        }
+
+        /* ---------------------------------- */
+        /* 6. Footer & CTA                    */
+        /* ---------------------------------- */
+        footer {
+            text-align: center;
+            padding: 3rem 1rem;
+            font-size: 0.9rem;
+            color: #6b7280;
+            background-color: var(--color-slate);
+        }
+        footer p {
+            color: #d1d5db;
+        }
+        
+        .cta-section {
+            background-color: var(--color-slate);
+            color: var(--color-white);
+            text-align: center;
+        }
+        .cta-section h2 {
+            color: var(--color-white);
+        }
+        .cta-section .btn {
+             background-color: var(--color-accent);
+             border-color: var(--color-accent);
+             color: var(--color-slate);
+        }
+        .cta-section .btn:hover {
+            background-color: var(--color-white);
+            border-color: var(--color-white);
+        }
+
+        /* ---------------------------------- */
+        /* 7. Back to Top Button              */
+        /* ---------------------------------- */
+        .back-to-top-button {
+          position: fixed;
+          bottom: 2rem;
+          right: 2rem;
+          width: 70px;
+          height: auto;
+          z-index: 1000;
+          transition: transform 0.3s ease;
+        }
+
+        .back-to-top-button:hover {
+          transform: translateY(-8px);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.85rem 1.75rem;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: 'Rajdhani', sans-serif;
+            margin-top: 1rem;
+            margin-right: 0.5rem;
+            border-radius: var(--border-radius-soft);
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+    </style>
+</head>
+<body id="home">
+
+    <header>
+        <nav aria-label="Main navigation">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="hero-balloons-container">
+                <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/e4_balloon_animated_valid.svg" class="balloon" alt="">
+                <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/e4_balloon_animated_valid.svg" class="balloon" alt="">
+                <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/e4_balloon_animated_valid.svg" class="balloon" alt="">
+                <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/e4_balloon_animated_valid.svg" class="balloon" alt="">
+                <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/e4_balloon_animated_valid.svg" class="balloon" alt="">
+            </div>
+            <div class="container" data-aos="fade-up">
+                <h1>About Edw4rds Inc.</h1>
+                <h2 class="hero-subtitle">M4DE TO ELEV4TE</h2>
+            </div>
+        </section>
+
+        <!-- SECTION 1: THE ORIGIN STORY -->
+        <section>
+            <div class="container" data-aos="fade-up">
+                <p>I started Edw4rds Inc. because I saw too many of my friends — smart, hard-working small business owners — putting in 7-day weeks just to keep the lights on. They weren’t building a business. They were stuck in a job with no benefits and no off switch.</p>
+                <p>At the same time, I’d been deep in the world of AI and automation. The more I played, the more I realized: these tools could change everything for them. Not just flashy tools — but real systems that give people time back and help them grow <em>without burning out</em>.</p>
+                <p>And that’s when it clicked:<br><strong>My purpose has always been to build platforms to put others on.</strong> So who better to support than the small business owners who never stopped showing up — even when things got hard?</p>
+            </div>
+        </section>
+
+        <!-- SECTION 2: THE "WHY" -->
+        <section class="textured-bg">
+            <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/e4_balloon_animated_valid.svg" class="background-balloon" alt="">
+            <div class="container" data-aos="fade-up">
+                <h2>We’re Not Selling Services. We’re Solving the Right Problems.</h2>
+                <p>Edw4rds Inc. isn’t an agency in the traditional sense. We’re not here to sell you packages or talk jargon. We’re here to <strong>collaborate like friends</strong> — to get curious about your story, your “why,” and the work that actually lights you up. And then we help protect and scale that.</p>
+                <p>Most of our clients are small but mighty.<br>
+                They’ve got between 1 and 20 employees.<br>
+                They launched with a dream — but somewhere along the way, that dream got buried under too many hats and too little help.</p>
+                <p>We’re here to change that.</p>
+            </div>
+        </section>
+        
+        <!-- SECTION 3: IMAGE BREAK -->
+        <section>
+             <div class="container" data-aos="zoom-in-up">
+                <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/sam-e4.png" alt="Sam and E4 working side by side at their desks" class="content-box">
+            </div>
+        </section>
+
+        <!-- SECTION 4: WHAT WE DO -->
+        <section class="textured-bg">
+            <div class="container-wide grid-2col">
+                 <div data-aos="fade-right">
+                    <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/Teal%20Lightbulb%20Logo%20with%20_E4_%20(1).png" alt="E4 Lightbulb Logo" class="content-box" style="max-width: 400px; margin: auto;">
+                </div>
+                <div data-aos="fade-left">
+                    <h2>Automation, Branding, and Websites — With Soul</h2>
+                    <p>Everything we build is designed to give you your <em>why</em> back.</p>
+                    <ul>
+                        <li>Automation frees your time</li>
+                        <li>Branding clarifies your message</li>
+                        <li>A clean, smart website becomes your 24/7 wingman</li>
+                    </ul>
+                    <p>And we’ll guide you through every step of it. From first convo to launch day, we keep it human, helpful, and actually fun.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- SECTION 5: THE FEELING -->
+        <section>
+            <div class="container" data-aos="fade-up">
+                <h2>Relief + Empowerment = Elevation</h2>
+                <p>When it’s working right, you’ll feel it.<br>
+                The late-night stress will fade.<br>
+                The calendar will breathe.<br>
+                The vision will come back into focus.</p>
+                <p>That’s what we do here.</p>
+                <p><strong>Because solving problems and growing?</strong><br>
+                It’s supposed to be fun.</p>
+            </div>
+        </section>
+
+        <!-- CTA SECTION -->
+        <section class="cta-section textured-bg">
+            <div class="container" data-aos="fade-up">
+                <h2 class="text-center">Ready to get your time back?</h2>
+                <p style="margin-left: auto; margin-right: auto;">Let's find out if we're a good fit. It starts with a simple, no-pressure conversation.</p>
+                <a href="https://calendly.com/edw4rdsinc/story-call" class="btn">Book a Story Call</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Edw4rds Inc. — M4DE TO ELEV4TE</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Animated Balloon -->
+    <a href="#home" class="back-to-top-button" aria-label="Scroll to top">
+        <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/e4_balloon_animated_valid.svg" alt="Animated hot air balloon, scroll to top button">
+    </a>
+
+    <!-- AOS (Animate On Scroll) Initialization -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50,
+        });
+    </script>
+</body>
+</html>
 
