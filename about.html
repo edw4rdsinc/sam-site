@@ -237,20 +237,20 @@
         /* 5. Hero Section                    */
         /* ---------------------------------- */
         .hero {
-            padding: 6rem 1.5rem;
+            padding: 8rem 1.5rem;
             position: relative;
-            background-image: linear-gradient(rgba(30, 41, 59, 0.7), rgba(30, 41, 59, 0.7)), url('https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/sam-e4.png');
-            background-size: cover;
-            background-position: center 30%;
+            /* UPDATED: Added !important to force the background color */
+            background-color: var(--color-slate) !important;
             color: var(--color-white);
             text-align: center;
+            overflow: hidden; /* Important to contain the animated balloons */
         }
         
         .hero .container {
-             z-index: 2;
+             z-index: 2; /* Ensures text is above balloons */
              position: relative;
         }
-
+        
         .hero::after {
             content: '';
             position: absolute;
@@ -263,12 +263,76 @@
             font-size: clamp(3rem, 6vw, 4.5rem);
         }
         
-        .hero p {
-            font-size: 1.25rem;
+        .hero-subtitle {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.5rem;
             color: rgba(255,255,255,0.9);
             max-width: 60ch;
-            margin-left: auto;
-            margin-right: auto;
+            margin: -1rem auto 0 auto;
+            font-weight: 600;
+            padding-bottom: 0;
+        }
+        .hero-subtitle::after {
+            display: none;
+        }
+        
+        .hero-balloons-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .balloon {
+            position: absolute;
+            opacity: 0.2;
+            animation: float 20s infinite ease-in-out;
+            bottom: -200px; /* Start off-screen */
+        }
+
+        .balloon:nth-child(1) {
+            width: 80px; left: 10%;
+            animation-duration: 25s;
+        }
+        .balloon:nth-child(2) {
+            width: 120px; left: 35%;
+            filter: brightness(0) invert(1); /* Makes SVG white */
+            animation-duration: 20s; animation-delay: 5s;
+        }
+        .balloon:nth-child(3) {
+            width: 60px; left: 70%;
+            animation-duration: 30s; animation-delay: 2s;
+        }
+        .balloon:nth-child(4) {
+            width: 150px; left: 85%;
+            filter: brightness(0) invert(1); /* Makes SVG white */
+            animation-duration: 18s; animation-delay: 8s;
+        }
+        .balloon:nth-child(5) {
+            width: 50px; left: 50%;
+            animation-duration: 35s; animation-delay: 12s;
+        }
+
+        @keyframes float {
+            from {
+                transform: translateY(0) rotate(0deg);
+            }
+            to {
+                transform: translateY(-120vh) rotate(360deg);
+            }
+        }
+
+        .background-balloon {
+            position: absolute;
+            top: -80px;
+            right: -100px;
+            width: 400px;
+            opacity: 0.07;
+            z-index: 0;
+            transform: rotate(15deg);
+            pointer-events: none;
         }
 
         /* ---------------------------------- */
@@ -355,9 +419,16 @@
     <main>
         <!-- HERO SECTION -->
         <section class="hero">
+            <div class="hero-balloons-container">
+                <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/e4_balloon_animated_valid.svg" class="balloon" alt="">
+                <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/e4_balloon_animated_valid.svg" class="balloon" alt="">
+                <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/e4_balloon_animated_valid.svg" class="balloon" alt="">
+                <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/e4_balloon_animated_valid.svg" class="balloon" alt="">
+                <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/e4_balloon_animated_valid.svg" class="balloon" alt="">
+            </div>
             <div class="container" data-aos="fade-up">
                 <h1>About Edw4rds Inc.</h1>
-                <p>M4DE TO ELEV4TE</p>
+                <h2 class="hero-subtitle">M4DE TO ELEV4TE</h2>
             </div>
         </section>
 
@@ -372,6 +443,7 @@
 
         <!-- SECTION 2: THE "WHY" -->
         <section class="textured-bg">
+            <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/e4_balloon_animated_valid.svg" class="background-balloon" alt="">
             <div class="container" data-aos="fade-up">
                 <h2>We’re Not Selling Services. We’re Solving the Right Problems.</h2>
                 <p>Edw4rds Inc. isn’t an agency in the traditional sense. We’re not here to sell you packages or talk jargon. We’re here to <strong>collaborate like friends</strong> — to get curious about your story, your “why,” and the work that actually lights you up. And then we help protect and scale that.</p>
@@ -384,8 +456,8 @@
         
         <!-- SECTION 3: IMAGE BREAK -->
         <section>
-             <div class="container-wide" data-aos="zoom-in-up">
-                <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/sam-and-e4-working.png" alt="Sam and E4 working side by side at their desks" class="content-box">
+             <div class="container" data-aos="zoom-in-up">
+                <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/sam-e4.png" alt="Sam and E4 working side by side at their desks" class="content-box">
             </div>
         </section>
 
@@ -393,7 +465,7 @@
         <section class="textured-bg">
             <div class="container-wide grid-2col">
                  <div data-aos="fade-right">
-                    <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/Teal%20Lightbulb%20Logo%20with%20_E4_%20(1).jpg" alt="E4 Lightbulb Logo" class="content-box" style="max-width: 400px; margin: auto;">
+                    <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/Teal%20Lightbulb%20Logo%20with%20_E4_%20(1).png" alt="E4 Lightbulb Logo" class="content-box" style="max-width: 400px; margin: auto;">
                 </div>
                 <div data-aos="fade-left">
                     <h2>Automation, Branding, and Websites — With Soul</h2>
