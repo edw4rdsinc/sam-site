@@ -85,7 +85,6 @@
             padding-bottom: 0.75rem;
         }
         
-        /* Burnt accent bar below h2 titles */
         h2::after {
             content: '';
             position: absolute;
@@ -97,7 +96,6 @@
             border-radius: 2px;
         }
         
-        /* Center the accent bar for centered h2 */
         h2.text-center::after {
             left: 50%;
             transform: translateX(-50%);
@@ -183,11 +181,9 @@
             margin: 0 auto;
         }
 
-        /* Alternating background colors */
         section:nth-of-type(odd) { background-color: var(--color-white); }
         section:nth-of-type(even) { background-color: var(--color-light); }
 
-        /* Soft-framed content containers */
         .content-box {
             background-color: var(--color-white);
             padding: 2rem;
@@ -196,7 +192,6 @@
             box-shadow: var(--shadow-light);
         }
 
-        /* Subtle texture overlay for specific sections */
         .textured-bg {
             position: relative;
         }
@@ -207,7 +202,6 @@
             left: 0;
             right: 0;
             bottom: 0;
-            /* Subtle geometric dot pattern */
             background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle fill='%23D1D5DB' cx='10' cy='10' r='1'/%3E%3C/svg%3E");
             opacity: 0.3;
             z-index: 0;
@@ -217,7 +211,6 @@
             z-index: 1;
         }
 
-        /* Grid layouts */
         .grid-2col {
             display: grid;
             gap: 3rem;
@@ -260,7 +253,6 @@
         .hero {
             padding: 6rem 1.5rem;
             position: relative;
-            /* UPDATED: Live GitHub raw URL for the background image */
             background-image: linear-gradient(rgba(30, 41, 59, 0.7), rgba(30, 41, 59, 0.7)), url('https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/pros-in-a-balloon.png');
             background-size: cover;
             background-position: center;
@@ -274,7 +266,6 @@
             z-index: 2;
         }
 
-        /* Optional SVG dot pattern overlay */
         .hero::after {
             content: '';
             position: absolute;
@@ -349,39 +340,41 @@
         footer p {
             color: #d1d5db;
         }
+        
         /* ---------------------------------- */
-/* 8. Back to Top Button              */
-/* ---------------------------------- */
-.back-to-top-button {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  width: 70px; /* Adjust size if needed */
-  height: auto;
-  z-index: 1000;
-  transition: transform 0.3s ease;
-}
+        /* 8. Back to Top Button              */
+        /* ---------------------------------- */
+        .back-to-top-button {
+          position: fixed;
+          bottom: 2rem;
+          right: 2rem;
+          width: 70px;
+          height: auto;
+          z-index: 1000;
+          transition: transform 0.3s ease;
+        }
 
-.back-to-top-button:hover {
-  transform: translateY(-8px); /* Lifts the balloon on hover */
-}
+        .back-to-top-button:hover {
+          transform: translateY(-8px);
+        }
     </style>
 </head>
-<body>
+<body id="home">
     <header>
         <nav aria-label="Main navigation">
             <ul>
-                <li><a href="#home" class="active">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#build">Services</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <!-- UPDATED: Links point to the correct .html files -->
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
         <!-- HERO SECTION -->
-        <section id="home" class="hero">
+        <section class="hero">
             <div class="container grid-2col">
                 <div class="text-col" data-aos="fade-right">
                     <h1>M4DE TO ELEV4TE — Without Losing What Matters Most</h1>
@@ -389,21 +382,20 @@
                     <p>At Edw4rds Inc., we help small business owners scale with intention. We build brands, websites, and automations that protect your purpose — so you can grow your impact without burning out.</p>
                     <div>
                         <a href="https://calendly.com/edw4rdsinc/story-call" class="btn">Start With a Story Call</a>
-                        <a href="#build" class="btn-outline">See What We Build</a>
+                        <!-- UPDATED: Link points to services.html -->
+                        <a href="services.html" class="btn-outline">See What We Build</a>
                     </div>
                 </div>
                 <div data-aos="fade-left" data-aos-delay="200">
-                    <!-- UPDATED: Live GitHub raw URL -->
                     <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/pros-in-a-balloon.png" alt="Professionals rising in hot air balloon" class="img-col">
                 </div>
             </div>
         </section>
 
         <!-- YOUR WHY COMES FIRST -->
-        <section id="about" class="textured-bg">
+        <section class="textured-bg">
             <div class="container grid-2col">
                 <div data-aos="fade-right">
-                    <!-- UPDATED: Live GitHub raw URL -->
                     <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/family-campfire.png" alt="Family sharing stories around a campfire" class="img-col content-box">
                 </div>
                 <div class="text-col" data-aos="fade-left">
@@ -416,7 +408,7 @@
         </section>
 
         <!-- WHAT WE BUILD -->
-        <section id="build">
+        <section>
             <div class="container">
                 <div style="text-align: center;" data-aos="fade-up">
                     <h2 class="text-center">What We Build (After We Listen)</h2>
@@ -450,7 +442,6 @@
                     </div>
                 </div>
                 <div style="margin-top: 4rem; text-align: center;" data-aos="zoom-in-up">
-                    <!-- UPDATED: Live GitHub raw URL -->
                     <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/e4-toolbox.png" alt="Toolbox of meaningful solutions" style="max-width: 500px; margin: auto;">
                 </div>
             </div>
@@ -460,7 +451,6 @@
         <section class="textured-bg">
             <div class="container grid-2col">
                 <div data-aos="fade-right">
-                    <!-- UPDATED: Live GitHub raw URL -->
                     <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/robots-co-laboring.png" alt="Friendly AI working beside a human" class="img-col content-box">
                 </div>
                 <div class="text-col" data-aos="fade-left">
@@ -489,17 +479,15 @@
                     </ol>
                 </div>
                 <div data-aos="fade-left">
-                    <!-- UPDATED: Live GitHub raw URL -->
                     <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/crossing-the-bridge.png" alt="Client and guide walking across the bridge together" class="img-col content-box">
                 </div>
             </div>
         </section>
 
         <!-- START WITH THE STORY (CTA) -->
-        <section id="contact" class="textured-bg">
+        <section class="textured-bg">
             <div class="container grid-2col">
                 <div data-aos="fade-right">
-                    <!-- UPDATED: Live GitHub raw URL -->
                     <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/sam-chat.png" alt="Sam talking with a client" class="img-col content-box">
                 </div>
                 <div class="text-col" data-aos="fade-left">
@@ -518,19 +506,20 @@
         </div>
     </footer>
 
+    <!-- Back to Top Animated Balloon -->
+    <a href="#home" class="back-to-top-button" aria-label="Scroll to top">
+        <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/e4_balloon_animated_valid.svg" alt="Animated hot air balloon, scroll to top button">
+    </a>
+
     <!-- AOS (Animate On Scroll) Initialization -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         AOS.init({
-            duration: 800, // Animation duration
-            once: true,     // Animate elements only once
-            offset: 50,     // Trigger animations a little early
+            duration: 800,
+            once: true,
+            offset: 50,
         });
     </script>
-    <!-- Back to Top Animated Balloon -->
-<a href="#home" class="back-to-top-button" aria-label="Scroll to top">
-    <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/e4_balloon_animated_valid.svg" alt="Animated hot air balloon, scroll to top button">
-</a>
 </body>
 </html>
 
