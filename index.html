@@ -349,6 +349,22 @@
         footer p {
             color: #d1d5db;
         }
+        /* ---------------------------------- */
+/* 8. Back to Top Button              */
+/* ---------------------------------- */
+.back-to-top-button {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 70px; /* Adjust size if needed */
+  height: auto;
+  z-index: 1000;
+  transition: transform 0.3s ease;
+}
+
+.back-to-top-button:hover {
+  transform: translateY(-8px); /* Lifts the balloon on hover */
+}
     </style>
 </head>
 <body>
@@ -511,6 +527,10 @@
             offset: 50,     // Trigger animations a little early
         });
     </script>
+    <!-- Back to Top Animated Balloon -->
+<a href="#home" class="back-to-top-button" aria-label="Scroll to top">
+    <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/e4_balloon_animated_valid.svg" alt="Animated hot air balloon, scroll to top button">
+</a>
 </body>
 </html>
 
