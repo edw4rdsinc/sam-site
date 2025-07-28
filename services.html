@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About | Edw4rds Inc.</title>
+    <title>Services | Edw4rds Inc.</title>
     
     <!-- Google Fonts: Rajdhani for headings, Inter for body -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -102,7 +102,7 @@
         }
 
         h3 {
-            font-size: 1.5rem;
+            font-size: 1.75rem;
             color: var(--color-teal);
         }
 
@@ -113,6 +113,25 @@
         
         ul, ol {
             padding-left: 1.25rem;
+            list-style: none;
+        }
+        
+        ul li::before {
+            content: '⬩';
+            color: var(--color-accent);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        blockquote {
+            font-style: italic;
+            color: #4A4A4A;
+            border-left: 4px solid var(--color-accent);
+            padding-left: 1rem;
+            margin: 2rem 0;
+            font-size: 1.1rem;
         }
 
         /* ---------------------------------- */
@@ -133,6 +152,10 @@
             align-items: center;
             padding: 1rem;
             gap: 2rem;
+        }
+        
+        header nav ul li::before {
+            content: none;
         }
 
         header nav ul li a {
@@ -177,13 +200,8 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
-        }
-        
-        .container-wide {
-             max-width: 1200px;
-             margin: 0 auto;
         }
 
         section:nth-of-type(odd) { background-color: var(--color-white); }
@@ -191,10 +209,11 @@
 
         .content-box {
             background-color: var(--color-white);
-            padding: 2rem;
+            padding: 2.5rem;
             border: 1px solid #e5e7eb;
             border-radius: var(--border-radius-soft);
             box-shadow: var(--shadow-light);
+            height: 100%;
         }
 
         .textured-bg {
@@ -215,15 +234,25 @@
             position: relative;
             z-index: 1;
         }
-
+        
         .grid-2col {
             display: grid;
             gap: 3rem;
             align-items: center;
         }
 
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
         @media (min-width: 768px) {
             .grid-2col {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .services-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
@@ -231,23 +260,26 @@
             section {
                 padding: 6rem 2rem;
             }
+            .services-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
 
         /* ---------------------------------- */
         /* 5. Hero Section                    */
         /* ---------------------------------- */
         .hero {
-            padding: 8rem 1.5rem;
+            padding: 6rem 1.5rem;
             position: relative;
             /* UPDATED: Added !important to force the background color */
             background-color: var(--color-slate) !important;
             color: var(--color-white);
             text-align: center;
-            overflow: hidden; /* Important to contain the animated balloons */
+            overflow: hidden;
         }
         
         .hero .container {
-             z-index: 2; /* Ensures text is above balloons */
+             z-index: 2;
              position: relative;
         }
         
@@ -261,6 +293,7 @@
         
         .hero h1 {
             font-size: clamp(3rem, 6vw, 4.5rem);
+            margin-bottom: 0.5rem;
         }
         
         .hero-subtitle {
@@ -268,71 +301,8 @@
             font-size: 1.5rem;
             color: rgba(255,255,255,0.9);
             max-width: 60ch;
-            margin: -1rem auto 0 auto;
+            margin: 0 auto;
             font-weight: 600;
-            padding-bottom: 0;
-        }
-        .hero-subtitle::after {
-            display: none;
-        }
-        
-        .hero-balloons-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-
-        .balloon {
-            position: absolute;
-            opacity: 0.2;
-            animation: float 20s infinite ease-in-out;
-            bottom: -200px; /* Start off-screen */
-        }
-
-        .balloon:nth-child(1) {
-            width: 80px; left: 10%;
-            animation-duration: 25s;
-        }
-        .balloon:nth-child(2) {
-            width: 120px; left: 35%;
-            filter: brightness(0) invert(1); /* Makes SVG white */
-            animation-duration: 20s; animation-delay: 5s;
-        }
-        .balloon:nth-child(3) {
-            width: 60px; left: 70%;
-            animation-duration: 30s; animation-delay: 2s;
-        }
-        .balloon:nth-child(4) {
-            width: 150px; left: 85%;
-            filter: brightness(0) invert(1); /* Makes SVG white */
-            animation-duration: 18s; animation-delay: 8s;
-        }
-        .balloon:nth-child(5) {
-            width: 50px; left: 50%;
-            animation-duration: 35s; animation-delay: 12s;
-        }
-
-        @keyframes float {
-            from {
-                transform: translateY(0) rotate(0deg);
-            }
-            to {
-                transform: translateY(-120vh) rotate(360deg);
-            }
-        }
-
-        .background-balloon {
-            position: absolute;
-            top: -80px;
-            right: -100px;
-            width: 400px;
-            opacity: 0.07;
-            z-index: 0;
-            transform: rotate(15deg);
-            pointer-events: none;
         }
 
         /* ---------------------------------- */
@@ -352,7 +322,6 @@
         .cta-section {
             background-color: var(--color-slate);
             color: var(--color-white);
-            text-align: center;
         }
         .cta-section h2 {
             color: var(--color-white);
@@ -409,8 +378,8 @@
         <nav aria-label="Main navigation">
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="about.html" class="active">About</a></li>
-                <li><a href="services.html">Services</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html" class="active">Services</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
@@ -419,90 +388,90 @@
     <main>
         <!-- HERO SECTION -->
         <section class="hero">
-            <div class="hero-balloons-container">
-                <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/e4_balloon_animated_valid.svg" class="balloon" alt="">
-                <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/e4_balloon_animated_valid.svg" class="balloon" alt="">
-                <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/e4_balloon_animated_valid.svg" class="balloon" alt="">
-                <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/e4_balloon_animated_valid.svg" class="balloon" alt="">
-                <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/e4_balloon_animated_valid.svg" class="balloon" alt="">
-            </div>
             <div class="container" data-aos="fade-up">
-                <h1>About Edw4rds Inc.</h1>
-                <h2 class="hero-subtitle">M4DE TO ELEV4TE</h2>
+                <h1>What We Build</h1>
+                <p class="hero-subtitle">Everything starts with your <em>why</em>. Then we scale it.</p>
             </div>
         </section>
 
-        <!-- SECTION 1: THE ORIGIN STORY -->
+        <!-- INTRO SECTION -->
         <section>
-            <div class="container" data-aos="fade-up">
-                <p>I started Edw4rds Inc. because I saw too many of my friends — smart, hard-working small business owners — putting in 7-day weeks just to keep the lights on. They weren’t building a business. They were stuck in a job with no benefits and no off switch.</p>
-                <p>At the same time, I’d been deep in the world of AI and automation. The more I played, the more I realized: these tools could change everything for them. Not just flashy tools — but real systems that give people time back and help them grow <em>without burning out</em>.</p>
-                <p>And that’s when it clicked:<br><strong>My purpose has always been to build platforms to put others on.</strong> So who better to support than the small business owners who never stopped showing up — even when things got hard?</p>
+            <div class="container" style="max-width: 900px;" data-aos="fade-up">
+                <p>Most small business owners didn’t start out wanting to run a website or an email funnel. They started with a dream — something real and personal. But somewhere along the way, that vision got buried under busywork and burnout.</p>
+                <p>At Edw4rds Inc., we help bring that dream back into focus.<br>Here’s how:</p>
             </div>
         </section>
 
-        <!-- SECTION 2: THE "WHY" -->
+        <!-- SERVICES GRID SECTION -->
         <section class="textured-bg">
-            <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/e4_balloon_animated_valid.svg" class="background-balloon" alt="">
-            <div class="container" data-aos="fade-up">
-                <h2>We’re Not Selling Services. We’re Solving the Right Problems.</h2>
-                <p>Edw4rds Inc. isn’t an agency in the traditional sense. We’re not here to sell you packages or talk jargon. We’re here to <strong>collaborate like friends</strong> — to get curious about your story, your “why,” and the work that actually lights you up. And then we help protect and scale that.</p>
-                <p>Most of our clients are small but mighty.<br>
-                They’ve got between 1 and 20 employees.<br>
-                They launched with a dream — but somewhere along the way, that dream got buried under too many hats and too little help.</p>
-                <p>We’re here to change that.</p>
+            <div class="container">
+                <div class="services-grid">
+                    <!-- Service 1: Story -->
+                    <div class="content-box" data-aos="fade-up" data-aos-delay="100">
+                        <h3>🧠 STORY</h3>
+                        <p><strong>Your mission, clarified.</strong></p>
+                        <p>Before we build anything, we listen. Because the story behind your business — the “why” that started it all — is your most powerful asset. We’ll help you uncover it, shape it, and turn it into messaging that actually moves people.</p>
+                        <p><strong>Services include:</strong></p>
+                        <ul>
+                            <li>StoryBrand-style messaging</li>
+                            <li>Homepage copy</li>
+                            <li>Brand narrative & tagline development</li>
+                            <li>Strategic story clarity session</li>
+                        </ul>
+                        <blockquote>“You don’t need more noise — you need to say the right thing to the right people.”</blockquote>
+                    </div>
+                    <!-- Service 2: Voice -->
+                    <div class="content-box" data-aos="fade-up" data-aos-delay="200">
+                        <h3>🎧 VOICE</h3>
+                        <p><strong>Your brand, unmistakable.</strong></p>
+                        <p>Once the story is clear, we give it a voice. That means visuals, tone, and style that feel true to you — not some copy-paste template. Whether it’s a logo or a call-to-action, it should sound like you, look like you, and connect like you.</p>
+                        <p><strong>Services include:</strong></p>
+                        <ul>
+                            <li>Logo design + brand marks</li>
+                            <li>Fonts, colors, icons (brand identity suite)</li>
+                            <li>Web copy that speaks human</li>
+                            <li>Visual style direction and illustrations</li>
+                        </ul>
+                        <blockquote>“You already have a voice. We just make sure your business uses it.”</blockquote>
+                    </div>
+                    <!-- Service 3: Empowerment -->
+                    <div class="content-box" data-aos="fade-up" data-aos-delay="300">
+                        <h3>🤖 EMPOWERMENT</h3>
+                        <p><strong>Your systems, smarter.</strong></p>
+                        <p>This is where it clicks.<br>We build platforms that give you your time back — websites that do the work, automations that run behind the scenes, and client flows that just make sense. Our systems don’t replace your magic — they protect it.</p>
+                        <p><strong>Services include:</strong></p>
+                        <ul>
+                            <li>Website design + launch</li>
+                            <li>Automation setup (GHL, Make, n8n)</li>
+                            <li>CRM and client flow mapping</li>
+                            <li>Walkthroughs and documentation (so you’re never left guessing)</li>
+                        </ul>
+                        <blockquote>“Growth doesn’t have to mean grinding. Our job is to make scaling feel simple.”</blockquote>
+                    </div>
+                </div>
             </div>
         </section>
         
-        <!-- SECTION 3: IMAGE BREAK -->
-        <section>
-             <div class="container" data-aos="zoom-in-up">
-                <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/sam-e4.png" alt="Sam and E4 working side by side at their desks" class="content-box">
-            </div>
-        </section>
-
-        <!-- SECTION 4: WHAT WE DO -->
-        <section class="textured-bg">
-            <div class="container-wide grid-2col">
-                 <div data-aos="fade-right">
-                    <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/Teal%20Lightbulb%20Logo%20with%20_E4_%20(1).png" alt="E4 Lightbulb Logo" class="content-box" style="max-width: 400px; margin: auto;">
-                </div>
-                <div data-aos="fade-left">
-                    <h2>Automation, Branding, and Websites — With Soul</h2>
-                    <p>Everything we build is designed to give you your <em>why</em> back.</p>
-                    <ul>
-                        <li>Automation frees your time</li>
-                        <li>Branding clarifies your message</li>
-                        <li>A clean, smart website becomes your 24/7 wingman</li>
-                    </ul>
-                    <p>And we’ll guide you through every step of it. From first convo to launch day, we keep it human, helpful, and actually fun.</p>
-                </div>
-            </div>
-        </section>
-        
-        <!-- SECTION 5: THE FEELING -->
-        <section>
-            <div class="container" data-aos="fade-up">
-                <h2>Relief + Empowerment = Elevation</h2>
-                <p>When it’s working right, you’ll feel it.<br>
-                The late-night stress will fade.<br>
-                The calendar will breathe.<br>
-                The vision will come back into focus.</p>
-                <p>That’s what we do here.</p>
-                <p><strong>Because solving problems and growing?</strong><br>
-                It’s supposed to be fun.</p>
-            </div>
-        </section>
-
         <!-- CTA SECTION -->
-        <section class="cta-section textured-bg">
-            <div class="container" data-aos="fade-up">
-                <h2 class="text-center">Ready to get your time back?</h2>
-                <p style="margin-left: auto; margin-right: auto;">Let's find out if we're a good fit. It starts with a simple, no-pressure conversation.</p>
-                <a href="https://calendly.com/edw4rdsinc/story-call" class="btn">Book a Story Call</a>
+        <section class="cta-section">
+            <div class="container">
+                <div class="grid-2col">
+                    <div data-aos="fade-right">
+                        <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/balloon-ride.png" alt="Sam and E4 riding in a hot air balloon" class="content-box" style="padding: 1rem;">
+                    </div>
+                    <div data-aos="fade-left" style="display: flex; flex-direction: column; justify-content: center;">
+                        <h2>Ready to Build?</h2>
+                        <p>If you’re tired of trying to do everything yourself and ready to work with someone who gets it — let’s talk. We don’t do one-size-fits-all. We do <em>what fits you best</em>.</p>
+                        <p><strong>Your vision, honored.</strong><br>
+                        <strong>Your voice, amplified.</strong><br>
+                        <strong>Your business, elevated.</strong></p>
+                        <div style="margin-top: 1rem;">
+                             <a href="https://calendly.com/edw4rdsinc/story-call" class="btn">Book a Story Call</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
-
     </main>
 
     <footer>
