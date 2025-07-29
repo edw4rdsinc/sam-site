@@ -1,1 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us | Edw4rds Inc.</title>
+    
+    <!-- Google Fonts: Rajdhani for headings, Inter for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- AOS (Animate On Scroll) Library for animations -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+    <style>
+        /* ---------------------------------- */
+        /* 1. Variables & Base Styles         */
+        /* ---------------------------------- */
+        :root {
+            --color-teal:   #2CA58D;
+            --color-slate:  #374151;
+            --color-light:  #F5F8FA;
+            --color-white:  #FFFFFF;
+            --color-accent: #FFC857;
+            --border-radius-soft: 8px;
+            --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--color-white);
+            color: var(--color-slate);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: var(--border-radius-soft);
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--color-teal);
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: var(--color-accent);
+        }
+
+        /* ---------------------------------- */
+        /* 2. Typography                      */
+        /* ---------------------------------- */
+        h1, h2, h3 {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            color: var(--color-slate);
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            color: var(--color-white);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 60px;
+            height: 4px;
+            background-color: var(--color-accent);
+            border-radius: 2px;
+        }
+        
+        h2.text-center::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        h3 {
+            font-size: 1.75rem;
+            color: var(--color-teal);
+        }
+
+        p, li {
+            margin-bottom: 1rem;
+            max-width: 65ch;
+        }
+        
+        ul {
+            padding-left: 1.25rem;
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        ul li {
+             margin-bottom: 1rem;
+        }
+        
+        ul li::before {
+            content: '⬩';
+            color: var(--color-accent);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        
+        .highlight {
+            font-weight: bold;
+            color: var(--color-slate);
+        }
+
+
+        /* ---------------------------------- */
+        /* 3. Header & Navigation             */
+        /* ---------------------------------- */
+        header {
+            background-color: var(--color-white);
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        header nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            gap: 2rem;
+        }
+        
+        header nav ul li::before {
+            content: none;
+        }
+
+        header nav ul li a {
+            color: var(--color-slate);
+            font-weight: 600;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        header nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--color-accent);
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.3s ease;
+        }
+
+        header nav ul li a:hover::after,
+        header nav ul li a.active::after {
+            transform: scaleX(1);
+        }
+        
+        header nav ul li a.active,
+        header nav ul li a:hover {
+            color: var(--color-slate);
+        }
+
+        /* ---------------------------------- */
+        /* 4. Section & Layout Styling        */
+        /* ---------------------------------- */
+        section {
+            padding: 4rem 1.5rem;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        .container-narrow {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        section:nth-of-type(odd) { background-color: var(--color-white); }
+        section:nth-of-type(even) { background-color: var(--color-light); }
+
+        .textured-bg {
+            position: relative;
+        }
+        .textured-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle fill='%23D1D5DB' cx='10' cy='10' r='1'/%3E%3C/svg%3E");
+            opacity: 0.3;
+            z-index: 0;
+        }
+        .textured-bg > * {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .grid-2col {
+            display: grid;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .grid-2col {
+                grid-template-columns: 40% 1fr;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            section {
+                padding: 6rem 2rem;
+            }
+        }
+
+        /* ---------------------------------- */
+        /* 5. Hero Section                    */
+        /* ---------------------------------- */
+        .hero {
+            padding: 6rem 1.5rem;
+            position: relative;
+            background-color: var(--color-slate) !important;
+            color: var(--color-white);
+            text-align: center;
+            overflow: hidden;
+        }
+        
+        .hero .container-narrow {
+             z-index: 2;
+             position: relative;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='4' cy='4' r='1' fill='%23ffffff' fill-opacity='0.2'/%3E%3C/svg%3E");
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: clamp(3rem, 6vw, 4.5rem);
+            margin-bottom: 0.5rem;
+        }
+        
+        .hero-subtitle {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.5rem;
+            color: rgba(255,255,255,0.9);
+            max-width: 60ch;
+            margin: 0 auto;
+            font-weight: 600;
+        }
+
+        /* ---------------------------------- */
+        /* 6. Footer                          */
+        /* ---------------------------------- */
+        footer {
+            text-align: center;
+            padding: 3rem 1rem;
+            font-size: 0.9rem;
+            color: #6b7280;
+            background-color: var(--color-slate);
+        }
+        footer p {
+            color: #d1d5db;
+        }
+
+        /* ---------------------------------- */
+        /* 7. Back to Top Button              */
+        /* ---------------------------------- */
+        .back-to-top-button {
+          position: fixed;
+          bottom: 2rem;
+          right: 2rem;
+          width: 70px;
+          height: auto;
+          z-index: 1000;
+          transition: transform 0.3s ease;
+        }
+
+        .back-to-top-button:hover {
+          transform: translateY(-8px);
+        }
+
+    </style>
+</head>
+<body id="home">
+
+    <header>
+        <nav aria-label="Main navigation">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="container-narrow" data-aos="fade-up">
+                <h1>Let’s Talk</h1>
+                <p class="hero-subtitle">Not a sales pitch. Just a real conversation.</p>
+            </div>
+        </section>
+
+        <!-- INTRO SECTION -->
+        <section>
+            <div class="container-narrow" data-aos="fade-up">
+                <p>You’ve been doing everything alone. That’s exhausting.<br>
+                It’s time to feel <em>relieved and empowered</em> again.</p>
+                <p>If you’re a small business owner ready for that shift, we’d love to hear your story.</p>
+                <p>No pressure. No jargon.<br />
+                Just a real chat about where you’re stuck, what you’ve built, and what it might look like to elevate it.</p>
+            </div>
+        </section>
+
+        <!-- WHAT HAPPENS NEXT SECTION -->
+        <section class="textured-bg">
+            <div class="container-narrow" data-aos="fade-up">
+                <h2>What Happens When You Reach Out?</h2>
+                <ul>
+                    <li><span class="highlight">We schedule a quick call</span> — just enough time to understand what matters most to you.</li>
+                    <li><span class="highlight">You’ll meet Sam</span> (yep, the real one — not a bot).</li>
+                    <li><span class="highlight">We’ll get curious about your “why”</span> — and talk through what kind of support would actually move the needle.</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- REACH OUT SECTION -->
+        <section>
+            <div class="container grid-2col">
+                <div data-aos="fade-right">
+                     <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/sam-chat.png" alt="Sam talking with a client">
+                </div>
+                <div data-aos="fade-left">
+                    <h2>Reach Out When You’re Ready</h2>
+                    <ul>
+                        <li>📞 Prefer to talk? <a href="https://api.leadconnectorhq.com/widget/booking/C3oepnz7Imdc7eeKkS52" target="_blank">Schedule a Call</a></li>
+                        <li>📧 Like email better? <a href="mailto:sam@edw4rds.com">sam@edw4rds.com</a></li>
+                        <li>🚲 Already in motion? Let’s optimize what you’ve got — and build what’s missing.</li>
+                    </ul>
+                    <p><strong>You don’t need to figure it all out before you reach out.</strong><br />
+                    We’ll meet you where you are — and walk with you from there.</p>
+                    <p><strong>Start the conversation today</strong> — you’ll be surprised how much lighter things feel.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container-narrow">
+            <p>&copy; 2025 Edw4rds Inc. — M4DE TO ELEV4TE</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Animated Balloon -->
+    <a href="#home" class="back-to-top-button" aria-label="Scroll to top">
+        <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/e4_balloon_animated_valid.svg" alt="Animated hot air balloon, scroll to top button">
+    </a>
+
+    <!-- AOS (Animate On Scroll) Initialization -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50,
+        });
+    </script>
+</body>
+</html>
 
