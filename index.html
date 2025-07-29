@@ -5,12 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Edw4rds Inc. | Home</title>
     
-    <!-- Google Fonts: Rajdhani for headings, Inter for body -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
 
-    <!-- AOS (Animate On Scroll) Library for animations -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
     <style>
@@ -44,6 +42,11 @@
             line-height: 1.7;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Prevents scrolling when mobile nav is open */
+        body.nav-open {
+            overflow: hidden;
         }
 
         img {
@@ -118,54 +121,156 @@
         /* ---------------------------------- */
         /* 3. Header & Navigation             */
         /* ---------------------------------- */
-        header {
+        .main-header {
             background-color: var(--color-white);
             border-bottom: 1px solid #e5e7eb;
             position: sticky;
             top: 0;
             z-index: 100;
+            padding: 0 1.5rem; /* Added padding for mobile */
         }
         
-        header nav ul {
-            list-style: none;
+        .main-header .container {
+            display: flex;
+            justify-content: space-between; /* Space for logo and nav */
+            align-items: center;
+            height: 70px; /* Consistent header height */
+        }
+        
+        .logo {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--color-slate);
+            z-index: 1100; /* Ensure logo is above mobile nav overlay */
+        }
+        .logo a {
+             color: var(--color-slate);
+        }
+
+        .nav-toggle {
+            display: block;
+            background: transparent;
+            border: none;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            z-index: 1100; /* Keep button above overlay */
+            padding: 0;
+        }
+
+        .hamburger {
+            display: block;
+            position: relative;
+            width: 30px;
+            height: 2px;
+            background: var(--color-slate);
+            transition: all 0.2s ease-in-out;
+        }
+        .hamburger::before,
+        .hamburger::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background: var(--color-slate);
+            transition: all 0.2s ease-in-out;
+        }
+        .hamburger::before { top: -8px; }
+        .hamburger::after { bottom: -8px; }
+
+        .nav-open .hamburger { background: transparent; }
+        .nav-open .hamburger::before { transform: rotate(45deg) translate(5px, 7px); }
+        .nav-open .hamburger::after { transform: rotate(-45deg) translate(5px, -7px); }
+
+        .main-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(245, 248, 250, 0.98);
+            backdrop-filter: blur(5px);
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 1rem;
-            gap: 2rem;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 1050;
         }
 
-        header nav ul li a {
+        .nav-open .main-nav {
+            transform: translateX(0);
+        }
+
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .main-nav ul li a {
             color: var(--color-slate);
             font-weight: 600;
             font-family: 'Rajdhani', sans-serif;
-            font-size: 1.1rem;
-            padding: 0.5rem 0;
+            font-size: 2rem; /* Larger for easy tapping */
+            padding: 0.5rem 1rem;
             position: relative;
             transition: color 0.3s ease;
         }
         
-        header nav ul li a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background-color: var(--color-accent);
-            transform: scaleX(0);
-            transform-origin: center;
-            transition: transform 0.3s ease;
+        .main-nav ul li a::after { display: none; } /* Hide underline on mobile overlay */
+        
+        .main-nav ul li a.active,
+        .main-nav ul li a:hover {
+             color: var(--color-teal);
         }
 
-        header nav ul li a:hover::after,
-        header nav ul li a.active::after {
-            transform: scaleX(1);
-        }
-        
-        header nav ul li a.active,
-        header nav ul li a:hover {
-            color: var(--color-slate); /* Keep color consistent on hover */
+        /* Desktop Navigation Styles */
+        @media (min-width: 768px) {
+            .nav-toggle { display: none; }
+            .main-nav {
+                position: static;
+                transform: none;
+                background: none;
+                backdrop-filter: none;
+                height: auto;
+                width: auto;
+            }
+            .main-nav ul {
+                flex-direction: row;
+                gap: 2rem;
+            }
+            .main-nav ul li a {
+                font-size: 1.1rem;
+                padding: 0.5rem 0;
+            }
+            .main-nav ul li a:hover {
+                 color: var(--color-slate); /* Keep color consistent on hover */
+            }
+            .main-nav ul li a::after {
+                content: '';
+                position: absolute;
+                bottom: -2px;
+                left: 0;
+                width: 100%;
+                height: 2px;
+                display: block; /* Re-enable for desktop */
+                background-color: var(--color-accent);
+                transform: scaleX(0);
+                transform-origin: center;
+                transition: transform 0.3s ease;
+            }
+            .main-nav ul li a:hover::after,
+            .main-nav ul li a.active::after {
+                transform: scaleX(1);
+            }
         }
 
         /* ---------------------------------- */
@@ -182,7 +287,9 @@
         }
 
         section:nth-of-type(odd) { background-color: var(--color-white); }
-        section:nth-of-type(even) { background-color: var(--color-light); }
+        .hero + section, /* First section after hero is textured */
+        .hero + section + section + section { background-color: var(--color-light); }
+
 
         .content-box {
             background-color: var(--color-white);
@@ -194,6 +301,7 @@
 
         .textured-bg {
             position: relative;
+            background-color: var(--color-light); /* Fallback color */
         }
         .textured-bg::before {
             content: '';
@@ -260,10 +368,25 @@
             display: flex;
             align-items: center;
             min-height: 70vh;
+            text-align: center; /* Center text on mobile */
         }
         
         .hero .text-col {
             z-index: 2;
+        }
+        
+        /* Hide the redundant image on mobile for faster loads */
+        .hero .img-col {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .hero {
+                text-align: left; /* Revert to left align on larger screens */
+            }
+            .hero .img-col {
+                display: block; /* Show image on larger screens */
+            }
         }
 
         .hero::after {
@@ -298,7 +421,8 @@
             color: var(--color-white);
             border: 2px solid var(--color-teal);
         }
-        .btn:hover {
+        /* Added :active state for better touch feedback */
+        .btn:hover, .btn:active {
             background-color: var(--color-accent);
             border-color: var(--color-accent);
             color: var(--color-slate);
@@ -311,7 +435,7 @@
             color: var(--color-teal);
             border: 2px solid var(--color-teal);
         }
-        .btn-outline:hover {
+        .btn-outline:hover, .btn-outline:active {
             background-color: var(--color-teal);
             color: var(--color-white);
             transform: translateY(-2px);
@@ -322,7 +446,7 @@
             color: var(--color-white);
             border-color: var(--color-white);
         }
-        .hero .btn-outline:hover {
+        .hero .btn-outline:hover, .hero .btn-outline:active {
             background-color: var(--color-white);
             color: var(--color-slate);
         }
@@ -339,41 +463,63 @@
         }
         footer p {
             color: #d1d5db;
+            margin: auto; /* Center paragraph */
         }
         
         /* ---------------------------------- */
         /* 8. Back to Top Button              */
         /* ---------------------------------- */
         .back-to-top-button {
-          position: fixed;
-          bottom: 2rem;
-          right: 2rem;
-          width: 70px;
-          height: auto;
-          z-index: 1000;
-          transition: transform 0.3s ease;
+            position: fixed;
+            bottom: 1.5rem; /* Adjusted for consistency */
+            right: 1.5rem;
+            width: 60px; /* Slightly smaller for mobile */
+            height: auto;
+            z-index: 1000;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0; /* Initially hidden */
+            visibility: hidden;
+        }
+        
+        .back-to-top-button.visible {
+            opacity: 1;
+            visibility: visible;
         }
 
         .back-to-top-button:hover {
-          transform: translateY(-8px);
+            transform: translateY(-8px);
+        }
+        
+        @media (min-width: 768px) {
+            .back-to-top-button {
+                width: 70px;
+                bottom: 2rem;
+                right: 2rem;
+            }
         }
     </style>
 </head>
 <body id="home">
-    <header>
-        <nav aria-label="Main navigation">
-            <ul>
-                <!-- UPDATED: Links point to the correct .html files -->
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="#home">Edw4rds Inc.</a>
+            </div>
+            <button class="nav-toggle" aria-label="Open navigation" aria-controls="main-nav" aria-expanded="false">
+                <span class="hamburger"></span>
+            </button>
+            <nav id="main-nav" class="main-nav" aria-label="Main navigation">
+                <ul>
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
     <main>
-        <!-- HERO SECTION -->
         <section class="hero">
             <div class="container grid-2col">
                 <div class="text-col" data-aos="fade-right">
@@ -381,9 +527,9 @@
                     <p>You didn’t start your business just to stay busy. You started it because something in you shifted — a story, a calling, a sense of purpose too important to ignore.</p>
                     <p>At Edw4rds Inc., we help small business owners scale with intention. We build brands, websites, and automations that protect your purpose — so you can grow your impact without burning out.</p>
                     <div>
-    <a href="https://api.leadconnectorhq.com/widget/booking/C3oepnz7Imdc7eeKkS52" class="btn">Start With a Story Call</a>
-    <a href="services.html" class="btn-outline">See What We Build</a>
-</div>
+                        <a href="https://api.leadconnectorhq.com/widget/booking/C3oepnz7Imdc7eeKkS52" class="btn">Start With a Story Call</a>
+                        <a href="services.html" class="btn-outline">See What We Build</a>
+                    </div>
                 </div>
                 <div data-aos="fade-left" data-aos-delay="200">
                     <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/pros-in-a-balloon.png" alt="Professionals rising in hot air balloon" class="img-col">
@@ -391,7 +537,6 @@
             </div>
         </section>
 
-        <!-- YOUR WHY COMES FIRST -->
         <section class="textured-bg">
             <div class="container grid-2col">
                 <div data-aos="fade-right">
@@ -406,7 +551,6 @@
             </div>
         </section>
 
-        <!-- WHAT WE BUILD -->
         <section>
             <div class="container">
                 <div style="text-align: center;" data-aos="fade-up">
@@ -446,13 +590,12 @@
             </div>
         </section>
 
-        <!-- PROTECT PURPOSE -->
         <section class="textured-bg">
             <div class="container grid-2col">
                 <div data-aos="fade-right">
                     <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/robots-co-laboring.png" alt="Friendly AI working beside a human" class="img-col content-box">
                 </div>
-                <div class="text-col" data-aos="fade-left">
+                <div class="text-col" data-aos-fade-left">
                     <h2>M4DE TO ELEV4TE IMPACT. BUILT TO PROTECT PURPOSE.</h2>
                     <p>Automation isn’t just about efficiency. It’s about freedom.</p>
                     <ul>
@@ -465,7 +608,6 @@
             </div>
         </section>
 
-        <!-- HOW WE WORK -->
         <section>
             <div class="container grid-2col">
                 <div class="text-col" data-aos="fade-right">
@@ -483,7 +625,6 @@
             </div>
         </section>
 
-        <!-- START WITH THE STORY (CTA) -->
         <section class="textured-bg">
             <div class="container grid-2col">
                 <div data-aos="fade-right">
@@ -505,12 +646,10 @@
         </div>
     </footer>
 
-    <!-- Back to Top Animated Balloon -->
     <a href="#home" class="back-to-top-button" aria-label="Scroll to top">
         <img src="https://raw.githubusercontent.com/edw4rdsinc/sam-site/main/images/e4_balloon_animated_valid.svg" alt="Animated hot air balloon, scroll to top button">
     </a>
 
-    <!-- AOS (Animate On Scroll) Initialization -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         AOS.init({
@@ -518,8 +657,41 @@
             once: true,
             offset: 50,
         });
+
+        // --- Mobile Navigation & Back-to-Top Script ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const navToggle = document.querySelector('.nav-toggle');
+            const mainNav = document.querySelector('.main-nav');
+            const body = document.body;
+            const backToTopButton = document.querySelector('.back-to-top-button');
+            const header = document.querySelector('.main-header');
+
+            // Mobile nav toggle
+            if (navToggle) {
+                navToggle.addEventListener('click', function() {
+                    body.classList.toggle('nav-open');
+                    const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                    this.setAttribute('aria-expanded', !isExpanded);
+                });
+            }
+            
+            // Close mobile nav when a link is clicked
+            mainNav.addEventListener('click', (e) => {
+                if (e.target.tagName === 'A') {
+                    body.classList.remove('nav-open');
+                    navToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            // Back to top button visibility
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 300) {
+                    backToTopButton.classList.add('visible');
+                } else {
+                    backToTopButton.classList.remove('visible');
+                }
+            });
+        });
     </script>
 </body>
 </html>
-
-
