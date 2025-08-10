@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samuel Edwards - Resume</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for Teal & Slate theme */
+        :root {
+            --bg-dark: #2d3748; /* Slate 800 */
+            --bg-light-dark: #4a5568; /* Slate 700 */
+            --accent-teal: #4fd1c5; /* Teal 400 */
+            --text-light: #f7fafc; /* Gray 100 */
+            --text-medium: #a0aec0; /* Gray 500 */
+            --text-dark: #1a202c; /* Gray 900 */
+            --border-color: #718096; /* Gray 600 */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+        }
+
+        .container {
+            background-color: var(--bg-light-dark);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Left Column Styling */
+        .left-column {
+            background-color: var(--bg-dark);
+            border-right: 1px solid var(--border-color);
+        }
+
+        .left-column h2 {
+            color: var(--accent-teal);
+            border-bottom-color: var(--accent-teal);
+            text-shadow: 0 0 5px rgba(79, 209, 197, 0.3);
+        }
+
+        .left-column .icon {
+            color: var(--accent-teal);
+            text-shadow: 0 0 8px rgba(79, 209, 197, 0.5);
+        }
+        
+        .left-column .text-main {
+            color: var(--text-light);
+        }
+        
+        .left-column .text-secondary {
+             color: var(--text-medium);
+        }
+        
+        .left-column ul li::marker {
+            color: var(--accent-teal);
+        }
+
+
+        /* Right Column Styling */
+        .header-name {
+            color: #ffffff;
+            text-shadow: 0 0 2px rgba(255, 255, 255, 0.2);
+        }
+
+        .header-title {
+            color: var(--accent-teal);
+            text-shadow: 0 0 8px rgba(79, 209, 197, 0.5);
+        }
+
+        /* Timeline Styling */
+        .timeline {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 1.5rem;
+        }
+        .timeline:last-child {
+            padding-bottom: 0;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 10px;
+            height: 100%;
+            width: 2px;
+            background-color: var(--border-color);
+        }
+        .timeline:last-child::before {
+            height: 0;
+        }
+        .timeline-icon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: var(--accent-teal);
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            box-shadow: 0 0 10px var(--accent-teal);
+        }
+        
+        .timeline h3 {
+            color: #ffffff;
+        }
+        
+        .timeline h4 {
+            color: var(--text-light);
+        }
+
+        .timeline p, .timeline ul {
+            color: var(--text-medium);
+        }
+        
+        .timeline ul li::marker {
+            color: var(--accent-teal);
+        }
+
+        /* Section Load Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in-section {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <div class="container mx-auto max-w-4xl my-12 rounded-lg shadow-2xl shadow-teal-500/10 overflow-hidden">
+        <div class="grid grid-cols-1 md:grid-cols-3">
+
+            <!-- Left Column -->
+            <aside class="left-column md:col-span-1 p-8">
+                <!-- Contact Section -->
+                <div class="mb-8 fade-in-section" style="animation-delay: 100ms;">
+                    <h2 class="text-xl font-bold border-b-2 pb-2 mb-4">CONTACT</h2>
+                    <div class="flex items-center text-main mb-3">
+                        <i class="fas fa-phone w-6 icon"></i>
+                        <span>253-222-1367</span>
+                    </div>
+                    <div class="flex items-center text-main mb-3">
+                        <i class="fas fa-envelope w-6 icon"></i>
+                        <span>sam@edw4rds.com</span>
+                    </div>
+                    <div class="flex items-center text-main">
+                        <i class="fas fa-map-marker-alt w-6 icon"></i>
+                        <span>Hillsboro, OR</span>
+                    </div>
+                </div>
+
+                <!-- Skills Section -->
+                <div class="mb-8 fade-in-section" style="animation-delay: 200ms;">
+                    <h2 class="text-xl font-bold border-b-2 pb-2 mb-4">SKILLS</h2>
+                    <ul class="list-disc list-inside text-secondary space-y-2">
+                        <li>Sales & Marketing Expertise</li>
+                        <li>Leadership & Operations</li>
+                        <li>Advanced AI Integration</li>
+                        <li>CRM & Marketing Automation</li>
+                        <li>Public Speaking</li>
+                        <li>Process Improvement</li>
+                        <li>B2B Relationship Building</li>
+                    </ul>
+                </div>
+
+                <!-- Languages Section -->
+                <div class="mb-8 fade-in-section" style="animation-delay: 300ms;">
+                    <h2 class="text-xl font-bold border-b-2 pb-2 mb-4">LANGUAGES</h2>
+                    <p class="text-secondary">English (Native)</p>
+                </div>
+
+                <!-- Reference Section -->
+                <div class="fade-in-section" style="animation-delay: 400ms;">
+                    <h2 class="text-xl font-bold border-b-2 pb-2 mb-4">REFERENCE</h2>
+                    <p class="text-secondary font-semibold">Available upon request.</p>
+                </div>
+            </aside>
+
+            <!-- Right Column -->
+            <main class="md:col-span-2 p-8">
+                <!-- Header -->
+                <header class="mb-10 fade-in-section" style="animation-delay: 100ms;">
+                    <h1 class="text-5xl font-extrabold header-name">SAMUEL EDWARDS</h1>
+                    <h2 class="text-2xl font-semibold header-title mt-1">Sales Enablement Professional</h2>
+                </header>
+
+                <!-- Profile Section -->
+                <section class="mb-10 fade-in-section" style="animation-delay: 200ms;">
+                    <div class="timeline">
+                        <div class="timeline-icon"><i class="fas fa-user"></i></div>
+                        <h3 class="text-2xl font-bold mb-2">PROFILE</h3>
+                        <p class="leading-relaxed">
+                            25 years in sales and marketing, most of it in the insurance and benefits world. I love finding smart, creative ways to support sales teams and streamline operations — often by building simple, automated systems that take the busywork out of the day. My goal is always to help people focus on what they do best, while making sure marketing efforts are targeted, consistent, and effective.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Work Experience Section -->
+                <section class="mb-10 fade-in-section" style="animation-delay: 300ms;">
+                    <div class="timeline">
+                        <div class="timeline-icon"><i class="fas fa-briefcase"></i></div>
+                        <h3 class="text-2xl font-bold mb-4">WORK EXPERIENCE</h3>
+                        
+                        <div class="mb-6">
+                            <h4 class="text-lg font-bold">Chief Ambassador</h4>
+                            <p class="text-md font-medium">GYFT Labs Inc. | 2020 - 2024</p>
+                            <ul class="list-disc list-inside mt-2 space-y-1">
+                                <li>Led sales and marketing efforts for a purpose-driven clean energy startup.</li>
+                                <li>Managed trade show exhibits and coordinated outreach to generate interest.</li>
+                                <li>Directed a team of four, fostering a collaborative culture.</li>
+                                <li>Designed and implemented creative problem-solving frameworks.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h4 class="text-lg font-bold">Agency Owner</h4>
+                            <p class="text-md font-medium">Allstate Benefits | 2011 - 2020</p>
+                            <ul class="list-disc list-inside mt-2 space-y-1">
+                                <li>Built and led a top-performing agency, earning #1 in channel nationally.</li>
+                                <li>Led a team of six sales and support staff.</li>
+                                <li>Developed presentations and sales systems still in use company-wide.</li>
+                                <li>Spoke at numerous Allstate conferences.</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-6">
+                            <h4 class="text-lg font-bold">Financial Services Representative</h4>
+                            <p class="text-md font-medium">Allstate Financial Services | 2006 - 2018</p>
+                             <ul class="list-disc list-inside mt-2 space-y-1">
+                                <li>Consistently ranked in the top 15% regionally for premium written.</li>
+                                <li>Developed a system for analyzing and mining client books.</li>
+                            </ul>
+                        </div>
+                         <div class="mb-6">
+                            <h4 class="text-lg font-bold">Financial Services Representative</h4>
+                            <p class="text-md font-medium">LPL Financial Services | 2004 - 2006</p>
+                        </div>
+                         <div>
+                            <h4 class="text-lg font-bold">Financial Services Representative</h4>
+                            <p class="text-md font-medium">Northwestern Mutual Financial Network | 2002 - 2004</p>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Education Section -->
+                <section class="fade-in-section" style="animation-delay: 400ms;">
+                    <div class="timeline">
+                        <div class="timeline-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <h3 class="text-2xl font-bold mb-4">EDUCATION & CERTIFICATIONS</h3>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>Certified Life Coach</li>
+                            <li>Trained Crisis Counselor</li>
+                            <li>Formerly Series 7 Licensed</li>
+                            <li>Formerly Life/Disability Insurance Licensed</li>
+                        </ul>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+</body>
+</html>
+
