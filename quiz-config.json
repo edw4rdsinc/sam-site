@@ -1,0 +1,120 @@
+{
+  "quiz": {
+    "title": "Small Business Automation Quiz",
+    "intro": {
+      "text": "You’ll see your top matches right away, and we’ll send your full personalized plan by email. Takes about 3 minutes.",
+      "startButtonText": "Let’s Get Started"
+    },
+    "questions": [
+      {
+        "id": "q1",
+        "type": "multiple_choice",
+        "prompt": "Which areas of your business feel most overwhelming right now?",
+        "options": [
+          {"text": "Lead generation and nurturing", "scores": {"lead_generation": 2}},
+          {"text": "Scheduling and appointments", "scores": {"scheduling": 2}},
+          {"text": "Customer follow-up and retention", "scores": {"customer_follow_up": 2}},
+          {"text": "Payment collection and invoicing", "scores": {"payment_collection": 2}},
+          {"text": "Internal task and project management", "scores": {"internal_task_management": 2}},
+          {"text": "Presentation and proposal creation", "scores": {"presentation_creation": 2}},
+          {"text": "Reporting and insights", "scores": {"reporting_insights": 2}},
+          {"text": "Content and social posting", "scores": {"content_posting": 2}},
+          {"text": "Other (please specify in the last question)", "scores": {}}
+        ]
+      }
+      /* Additional questions here with similar structure */
+    ],
+    "archetypes": [
+      {
+        "id": "breathing_room",
+        "name": "Breathing Room",
+        "tagline": "You’ve been running on fumes. Let’s clear the clutter so you can finally exhale.",
+        "whyItMatters": "You need simple wins to clear overwhelm and reclaim your time.",
+        "automations": [
+          "Automated calendar reminders",
+          "Invoice follow-ups",
+          "One-click rebooking"
+        ]
+      },
+      {
+        "id": "momentum_builder",
+        "name": "Momentum Builder",
+        "tagline": "Your wheels are turning — now let’s pick up speed without burning out.",
+        "whyItMatters": "Scaling effort without adding stress keeps you moving forward.",
+        "automations": [
+          "Lead nurturing emails",
+          "Instant quote replies",
+          "Social post scheduling"
+        ]
+      },
+      {
+        "id": "back_in_control",
+        "name": "Back in Control",
+        "tagline": "The chaos doesn’t have to run the show — you can.",
+        "whyItMatters": "Gaining order means smoother operations and less mental load.",
+        "automations": [
+          "Task handoffs",
+          "CRM organization",
+          "Automated client onboarding"
+        ]
+      },
+      {
+        "id": "freedom_seeker",
+        "name": "Freedom Seeker",
+        "tagline": "Your time is too precious to trade for busywork.",
+        "whyItMatters": "Automations free you to focus on what truly matters — family, hobbies, life.",
+        "automations": [
+          "Client self-service booking",
+          "Proposal generators",
+          "Auto-reporting dashboards"
+        ]
+      }
+    ],
+    "emailGate": {
+      "fields": [
+        {"name": "firstName", "label": "First Name", "type": "text", "required": true},
+        {"name": "email", "label": "Email", "type": "email", "required": true},
+        {"name": "businessName", "label": "Business Name", "type": "text", "required": false},
+        {
+          "name": "industry",
+          "label": "Industry",
+          "type": "dropdown",
+          "required": true,
+          "options": [
+            "Housekeeping & Home Services",
+            "Mobile Mechanics & Auto Services",
+            "Coaching & Therapy",
+            "Trades",
+            "Fitness & Gyms",
+            "Florists & Event Services",
+            "Real Estate & Property Management",
+            "Health & Wellness Practitioners",
+            "Pet Services",
+            "Specialty Retail & E-Commerce",
+            "Other"
+          ]
+        },
+        {"name": "phone", "label": "Phone Number (optional)", "type": "tel", "required": false},
+        {
+          "name": "consent",
+          "label": "I consent to receive this email and occasional updates. No spam. Unsubscribe anytime.",
+          "type": "checkbox",
+          "required": true
+        }
+      ],
+      "submitButtonText": "Email Me My Full Plan",
+      "privacyText": "We’ll send your custom plan and (very) occasional updates. No spam. Unsubscribe anytime."
+    },
+    "completionAnimation": "checkmark",
+    "shareBlock": {
+      "enabled": true,
+      "text": "Found this helpful? Share it with a friend!",
+      "buttons": ["copyLink", "emailShare"]
+    },
+    "tracking": {
+      "enabled": true,
+      "provider": "Plausible",
+      "events": ["quizStart", "questionAnswered", "quizCompleted", "emailSubmitted"]
+    }
+  }
+}
