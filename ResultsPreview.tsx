@@ -1,4 +1,5 @@
 import React from 'react';
+import quizConfig from '../quiz-config.json';
 
 type Archetype = {
   id: string;
@@ -19,10 +20,57 @@ type ResultsPreviewProps = {
   onRequestFullPlan: () => void;
 };
 
-const ResultsPreview: React.FC<ResultsPreviewProps> = ({ archetypes, onRequestFullPlan }) => {
-  // For now, assume the first two archetypes in the config are top matches.
-  // Replace with real scoring logic later.
-  const topTwo = archetypes.slice(0, 2);
+function calculateScores(
+  answers: Answer[],
+  questions: typeof quizConfig.quiz.questions,
+  archetypes: Archetype[]
+): Record<string, number> {
+  const scores: Record<string, number> = {};
+  archetypes.forEach((a) => {
+    scores[a.id] = 0;
+  });
+  const questionMap = new Map(questions.map((q) => [q.id, q]));
+
+  answers.forEach(({ questionId, value }) => {
+    const question = questionMap.get(questionId);
+    if (!question) return;
+
+    const option = question.options.find(
+      (opt: any) => opt.text === value || opt.value === value
+    );
+    if (!option || !option.scores) return;
+
+    Object.entries(option.scores).forEach(([archetypeId, pts]) => {
+      if (archetypeId in scores) {
+        scores[archetypeId] += pts as number;
+      }
+    });
+  });
+
+  return scores;
+}
+
+function getTopArchetypes(
+  scores: Record<string, number>,
+  archetypes: Archetype[],
+  topN = 2
+): Archetype[] {
+  const sorted = Object.entries(scores)
+    .sort(([, aScore], [, bScore]) => bScore - aScore)
+    .slice(0, topN)
+    .map(([id]) => archetypes.find((a) => a.id === id))
+    .filter(Boolean) as Archetype[];
+
+  return sorted;
+}
+
+const ResultsPreview: React.FC<ResultsPreviewProps> = ({
+  answers,
+  archetypes,
+  onRequestFullPlan,
+}) => {
+  const scores = calculateScores(answers, quizConfig.quiz.questions, archetypes);
+  const topTwo = getTopArchetypes(scores, archetypes, 2);
 
   return (
     <section className="results-preview" aria-label="Quiz results preview">
@@ -31,7 +79,9 @@ const ResultsPreview: React.FC<ResultsPreviewProps> = ({ archetypes, onRequestFu
         <article key={a.id} className="archetype">
           <h3>{a.name}</h3>
           <p className="tagline">{a.tagline}</p>
-          <p className="why-it-matters"><strong>Why this matters for you:</strong> {a.whyItMatters}</p>
+          <p className="why-it-matters">
+            <strong>Why this matters for you:</strong> {a.whyItMatters}
+          </p>
         </article>
       ))}
       <div className="cta-buttons">
