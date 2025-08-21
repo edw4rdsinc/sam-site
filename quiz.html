@@ -1,228 +1,447 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Small Business Automation Quiz | Edw4rds Inc.</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Small Business Automation Quiz — Personalized Tips to Save Time & Stress</title>
+  <meta name="description" content="Ready to reclaim your day? Answer a few quick questions and receive a custom automation plan to help you work smarter, not harder." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --teal:#13A89A; /* Edw4rds Platform primary */
+      --slate:#2E2E2E; /* deep graphite */
+      --cream:#FAF9F7; /* eggshell */
+      --muted:#6b7280;
+      --radius:14px;
+      --focus: 0 0 0 3px rgba(19,168,154,.25);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; background:var(--cream); color:var(--slate);
+      font-family:'Rajdhani',system-ui,Segoe UI,Roboto,Arial,sans-serif;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    }
+    .container{
+      max-width:720px; margin:0 auto; padding:24px 20px 56px; min-height:100dvh;
+      display:flex; align-items:center; justify-content:center; flex-direction:column;
+    }
+    .card{
+      width:100%; background:#fff; border-radius:var(--radius); box-shadow:0 10px 30px rgba(0,0,0,.06);
+      padding:24px; position:relative;
+    }
+    h1,h2,h3{margin:0 0 10px}
+    h1{font-size:28px; letter-spacing:.2px}
+    h2{font-size:22px}
+    p{margin:0 0 14px; line-height:1.35}
+    .intro{ text-align:center; }
+    .intro p{ font-size:18px; color:var(--slate) }
+    .btn{
+      appearance:none; border:none; border-radius:12px; padding:14px 18px;
+      font-weight:700; cursor:pointer; background:var(--teal); color:#fff;
+      box-shadow:0 6px 14px rgba(19,168,154,.25); transition:.2s transform, .2s background-color;
+    }
+    .btn:focus{ outline:none; box-shadow:var(--focus) }
+    .btn:hover{ transform:translateY(-1px); background:#107a70 }
+    .btn.secondary{ background:transparent; color:var(--teal); border:2px solid var(--teal); box-shadow:none }
+    .stack{ display:flex; gap:12px; flex-wrap:wrap; justify-content:center }
 
-    <style>
-        /* ---------------------------------- */
-        /* 1. Variables & Base Styles         */
-        /* ---------------------------------- */
-        :root {
-            --color-teal:   #009688; /* Your Provided Teal */
-            --color-slate:  #37474F; /* Your Provided Slate */
-            --color-light:  #F5F1E7; /* Your Provided Cream */
-            --color-white:  #FFFFFF;
-            --color-accent: #FFC857; /* Accent from original site */
-            --border-radius-soft: 8px;
-            --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
+    /* Progress */
+    .progress{ height:8px; width:100%; background:#f1f5f9; border-radius:999px; overflow:hidden; margin:8px 0 16px }
+    .progress > span{ display:block; height:100%; width:0%; background:var(--teal); transition:width .35s ease }
+    .progress-text{ font-size:14px; color:var(--muted); text-align:right; margin-top:-6px }
 
-        html {
-            scroll-behavior: smooth;
-        }
+    /* Question */
+    .q-wrap{ display:flex; flex-direction:column; gap:12px }
+    .opt{
+      width:100%; text-align:left; padding:14px 16px; border:1.5px solid #e5e7eb; border-radius:12px; background:#fff; cursor:pointer; font-weight:600;
+      transition:border-color .2s, box-shadow .2s, transform .04s;
+    }
+    .opt[aria-pressed="true"], .opt:hover{ border-color:var(--teal); box-shadow:0 0 0 3px rgba(19,168,154,.1) }
+    .opt:active{ transform:scale(.995) }
+    .slider-row{ display:grid; grid-template-columns:1fr; gap:10px; padding:12px 4px }
+    input[type=range]{ width:100% }
+    .slider-labels{ display:flex; justify-content:space-between; font-size:13px; color:var(--muted) }
 
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    /* Results */
+    .arch{ border:1px solid #e5e7eb; border-radius:12px; padding:14px 14px 10px; margin:10px 0 }
+    .tagline{ color:var(--teal); font-style:italic }
 
-        body {
-            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-color: var(--color-white);
-            color: var(--color-slate);
-            line-height: 1.7;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        
-        main {
-            flex-grow: 1;
-        }
+    /* Email form */
+    form label{ display:block; font-weight:700; margin:10px 0 6px }
+    input[type=text], input[type=email], input[type=tel], select, textarea{
+      width:100%; border:1.5px solid #e5e7eb; border-radius:10px; padding:10px 12px; font:inherit; transition:border-color .2s, box-shadow .2s
+    }
+    input:focus, select:focus, textarea:focus{ outline:none; border-color:var(--teal); box-shadow:var(--focus) }
+    .err{ color:#e11d48; font-size:13px; margin-top:4px }
 
-        /* ---------------------------------- */
-        /* 2. Header & Navigation             */
-        /* ---------------------------------- */
-        .main-header {
-            background-color: var(--color-white);
-            border-bottom: 1px solid #e5e7eb;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            padding: 0 1.5rem;
-        }
-        
-        .main-header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 70px;
-        }
-        
-        .logo {
-            font-family: 'Rajdhani', sans-serif;
-            font-weight: 700;
-            font-size: 1.5rem;
-        }
-        .logo a {
-             color: var(--color-slate);
-             text-decoration: none;
-        }
+    /* Share */
+    .share{ text-align:center; margin-top:12px; color:var(--muted) }
+    .share .buttons{ display:flex; gap:10px; justify-content:center; margin-top:8px }
 
-        .main-nav ul {
-            list-style: none;
-            display: flex;
-            flex-direction: row;
-            gap: 2rem;
-            margin: 0;
-            padding: 0;
-        }
+    /* Completion */
+    .complete{ display:flex; align-items:center; justify-content:center; height:180px; color:var(--teal) }
+    .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0 }
 
-        .main-nav ul li a {
-            color: var(--color-slate);
-            font-weight: 600;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.1rem;
-            padding: 0.5rem 0;
-            position: relative;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        
-        .main-nav ul li a:hover {
-             color: var(--color-slate);
-        }
-        
-        .main-nav ul li a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background-color: var(--color-accent);
-            transform: scaleX(0);
-            transform-origin: center;
-            transition: transform 0.3s ease;
-        }
-        
-        .main-nav ul li a:hover::after,
-        .main-nav ul li a.active::after {
-            transform: scaleX(1);
-        }
-
-        /* ---------------------------------- */
-        /* 3. Main Content & Quiz Container   */
-        /* ---------------------------------- */
-        .quiz-section {
-            padding: 4rem 1.5rem;
-            background-color: var(--color-light);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .quiz-wrapper {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: var(--color-white);
-            padding: 2rem;
-            border-radius: var(--border-radius-soft);
-            box-shadow: var(--shadow-light);
-            border: 1px solid #e5e7eb;
-        }
-        
-        /* Styles for the React Quiz Components will be injected by React/CSS-in-JS */
-        /* We can add some base styles here if needed */
-        #quiz-root h2 {
-            font-family: 'Rajdhani', sans-serif;
-            color: var(--color-slate);
-        }
-        
-        #quiz-root button {
-            font-family: 'Rajdhani', sans-serif;
-            background-color: var(--color-teal);
-            color: var(--color-white);
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: var(--border-radius-soft);
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        
-        #quiz-root button:hover {
-            background-color: #00796B; /* A darker shade of the teal */
-        }
-
-
-        /* ---------------------------------- */
-        /* 4. Footer                          */
-        /* ---------------------------------- */
-        footer {
-            text-align: center;
-            padding: 3rem 1rem;
-            font-size: 0.9rem;
-            background-color: var(--color-slate);
-        }
-        footer p {
-            color: #d1d5db;
-            margin: auto;
-        }
-
-    </style>
+    /* Modal style hint if embedded */
+    .modal{ max-width:720px }
+  </style>
 </head>
 <body>
-    <header class="main-header">
-        <div class="container">
-            <div class="logo">
-                <a href="index.html">Edw4rds Inc.</a>
-            </div>
-            <nav id="main-nav" class="main-nav" aria-label="Main navigation">
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="quiz.html" class="active">Quiz</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+  <div class="container">
+    <div class="card" id="app" aria-live="polite"></div>
+  </div>
 
-    <main>
-        <section class="quiz-section">
-            <div class="container">
-                <div class="quiz-wrapper">
-                    <!-- This is where your React Quiz will be rendered. -->
-                    <div id="quiz-root"></div>
-                </div>
-            </div>
-        </section>
-    </main>
+  <script>
+  // --- Tiny click sound via Web Audio (no external asset)
+  const clickSfx = (()=>{
+    let ctx; return ()=>{ try{ ctx = ctx || new (window.AudioContext||window.webkitAudioContext)(); const o=ctx.createOscillator(); const g=ctx.createGain(); o.type='square'; o.frequency.value=440; g.gain.setValueAtTime(0.05, ctx.currentTime); g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime+0.06); o.connect(g).connect(ctx.destination); o.start(); o.stop(ctx.currentTime+0.06);}catch(e){} };
+  })();
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Edw4rds Inc. — M4DE TO ELEV4TE</p>
-        </div>
-    </footer>
+  // --- Config (embedded for single-file portability)
+  const CONFIG = {
+    meta:{ title:"Small Business Automation Quiz", intro:"You’ll see your top matches right away, and we’ll send your full personalized plan by email. Takes about 3 minutes.", startText:"Let’s Get Started", bookingUrl:"https://api.leadconnectorhq.com/widget/booking/C3oepnz7Imdc7eeKkS52", plausible:true },
+    archetypes:[
+      {id:'breathing_room', name:'Breathing Room', tagline:"You’ve been running on fumes. Let’s clear the clutter so you can finally exhale.", why:"You need simple wins to clear overwhelm and reclaim your time.", autos:["Automated calendar reminders","Invoice follow‑ups","One‑click rebooking"]},
+      {id:'momentum_builder', name:'Momentum Builder', tagline:"Your wheels are turning — now let’s pick up speed without burning out.", why:"Scaling effort without adding stress keeps you moving forward.", autos:["Lead nurturing emails","Instant quote replies","Social post scheduling"]},
+      {id:'back_in_control', name:'Back in Control', tagline:"The chaos doesn’t have to run the show — you can.", why:"Gaining order means smoother operations and less mental load.", autos:["Task handoffs","CRM organization","Automated client onboarding"]},
+      {id:'freedom_seeker', name:'Freedom Seeker', tagline:"Your time is too precious to trade for busywork.", why:"Automations free you to focus on what truly matters — family, hobbies, life.", autos:["Client self‑service booking","Proposal generators","Auto‑reporting dashboards"]}
+    ],
+    emailGate:{
+      fields:[
+        {name:'firstName', label:'First Name', type:'text', required:true},
+        {name:'email', label:'Email', type:'email', required:true},
+        {name:'businessName', label:'Business Name', type:'text', required:false},
+        {name:'industry', label:'Industry', type:'dropdown', required:true, options:[
+          'Housekeeping & Home Services','Mobile Mechanics & Auto Services','Coaching & Therapy','Trades','Fitness & Gyms','Florists & Event Services','Real Estate & Property Management','Health & Wellness Practitioners','Pet Services','Specialty Retail & E‑Commerce','Other']},
+        {name:'phone', label:'Phone Number (optional)', type:'tel', required:false},
+        {name:'consent', label:'I consent to receive this email and occasional updates. No spam. Unsubscribe anytime.', type:'checkbox', required:true}
+      ],
+      privacy:"We’ll send your custom plan and (very) occasional updates. No spam. Unsubscribe anytime.", submit:'Email me my full plan'
+    },
+    // 12 questions total (mix of multiple choice + slider + one open-ended internal)
+    questions:[
+      {id:'q1', type:'mc', prompt:'Which area feels most overwhelming right now?', options:[
+        {text:'Lead generation & nurture', scores:{momentum_builder:2}},
+        {text:'Scheduling & reminders', scores:{breathing_room:2}},
+        {text:'Customer follow‑up & reviews', scores:{back_in_control:2}},
+        {text:'Getting paid & invoices', scores:{breathing_room:2}},
+        {text:'Keeping tasks organized', scores:{back_in_control:2}},
+        {text:'Presentations & proposals', scores:{freedom_seeker:2}},
+        {text:'Reporting & knowing my numbers', scores:{momentum_builder:2}},
+        {text:'Content & social posting', scores:{momentum_builder:2}}
+      ]},
+      {id:'q2', type:'slider', prompt:'How often do you manually chase unpaid invoices?', map:{1:{breathing_room:2},3:{breathing_room:3},5:{breathing_room:4}}},
+      {id:'q3', type:'mc', prompt:'What’s your current booking process?', options:[
+        {text:'Text/call me manually', scores:{breathing_room:2}},
+        {text:'Link to a basic scheduler', scores:{momentum_builder:1}},
+        {text:'Full self‑service with reminders', scores:{freedom_seeker:1}}
+      ]},
+      {id:'q4', type:'slider', prompt:'How organized do your client tasks feel?', map:{1:{back_in_control:4},3:{back_in_control:2},5:{back_in_control:0}}},
+      {id:'q5', type:'mc', prompt:'When a new lead comes in…', options:[
+        {text:'I reply when I can', scores:{breathing_room:2}},
+        {text:'I use a canned reply', scores:{momentum_builder:2}},
+        {text:'They get an instant, tailored response', scores:{momentum_builder:3}}
+      ]},
+      {id:'q6', type:'slider', prompt:'How often do you rebuild similar proposals/presentations from scratch?', map:{1:{freedom_seeker:0},3:{freedom_seeker:2},5:{freedom_seeker:4}}},
+      {id:'q7', type:'mc', prompt:'What best describes your follow‑up flow after a job?', options:[
+        {text:'No set process', scores:{breathing_room:2}},
+        {text:'Occasional manual messages', scores:{back_in_control:2}},
+        {text:'Automated review/upsell sequence', scores:{momentum_builder:3}}
+      ]},
+      {id:'q8', type:'slider', prompt:'How confident are you in your weekly numbers (leads, close rate, revenue)?', map:{1:{back_in_control:3},3:{momentum_builder:2},5:{momentum_builder:3}}},
+      {id:'q9', type:'mc', prompt:'Content & posting feels like…', options:[
+        {text:'A burden I ignore', scores:{breathing_room:2}},
+        {text:'Something I dabble with', scores:{momentum_builder:2}},
+        {text:'Scheduled and systematized', scores:{momentum_builder:1}}
+      ]},
+      {id:'q10', type:'slider', prompt:'High‑intent: How urgent is it to free up 5+ hours/week?', map:{1:{},3:{momentum_builder:1},5:{freedom_seeker:3}}},
+      {id:'q11', type:'mc', prompt:'Which matters more right now?', options:[
+        {text:'Reduce mental load', scores:{breathing_room:2}},
+        {text:'Tighten operations', scores:{back_in_control:2}},
+        {text:'Grow without burnout', scores:{momentum_builder:2}},
+        {text:'Time with family', scores:{freedom_seeker:2}}
+      ]},
+      {id:'q12', type:'open', prompt:'Optional: What’s your biggest current challenge? (Internal use only)'}
+    ]
+  };
 
-    <!-- 
-      IMPORTANT: This script tag will load the compiled JavaScript for your quiz. 
-      You will need to replace 'path/to/your/compiled-quiz-app.js' with the 
-      actual path once you build the React application.
-    -->
-    <script src="path/to/your/compiled-quiz-app.js"></script>
+  // --- State & Rendering (vanilla JS)
+  const el = (tag, props={}, ...children)=>{
+    const n = document.createElement(tag);
+    Object.entries(props).forEach(([k,v])=>{
+      if(k.startsWith('on') && typeof v==='function') n.addEventListener(k.slice(2).toLowerCase(), v);
+      else if(k==='html') n.innerHTML = v;
+      else if(k==='class') n.className = v;
+      else if(k==='style' && typeof v==='object') Object.assign(n.style, v);
+      else n.setAttribute(k, v);
+    });
+    children.forEach(c=> n.append(c instanceof Node? c : document.createTextNode(c)) );
+    return n;
+  };
 
+  const app = document.getElementById('app');
+  let started=false, idx=0, order=[], answers=[], openText='', emailSubmitted=false;
+
+  // Persist minimal progress
+  const STORAGE_KEY = 'e4_quiz_state_v1';
+  const saveState = ()=>{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({started, idx, answers, openText}));
+  };
+  const loadState = ()=>{
+    try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)||'null') }catch{ return null }
+  };
+
+  const fireEvent = (name)=>{ if(CONFIG.meta.plausible && window.plausible){ window.plausible(name); } };
+
+  const shuffle = (arr)=> arr.map(v=>[Math.random(),v]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
+
+  const startQuiz = ()=>{
+    started=true; // randomize order but keep open-ended last
+    const qs = CONFIG.questions.filter(q=>q.type!=="open");
+    order = shuffle(qs.map(q=>q.id));
+    order.push('q12');
+    idx=0; answers=[]; openText='';
+    fireEvent('quizStart');
+    render();
+    saveState();
+  };
+
+  const resumeIfAny = ()=>{
+    const s = loadState();
+    if(!s || !s.started) return false;
+    started = s.started; idx = s.idx; answers = s.answers||[]; openText = s.openText||'';
+    // reconstruct order deterministically (fallback to fresh)
+    const doneIds = answers.map(a=>a.questionId);
+    const remaining = CONFIG.questions.filter(q=>q.type!=="open" && !doneIds.includes(q.id)).map(q=>q.id);
+    order = doneIds.concat(remaining); order.push('q12');
+    return true;
+  };
+
+  const currentQuestion = ()=> CONFIG.questions.find(q=> q.id === order[idx]);
+
+  const progressPct = ()=> ((idx)/ (order.length)) * 100;
+
+  const next = ()=>{ idx++; if(idx>=order.length){ showResultsPreview(); } else { renderQuestion(); } saveState(); };
+
+  const addAnswer = (questionId, value)=>{ answers.push({questionId, value}); clickSfx(); fireEvent('questionAnswered'); next(); };
+
+  // --- Scoring to archetypes
+  const calculateScores = ()=>{
+    const scores = Object.fromEntries(CONFIG.archetypes.map(a=>[a.id,0]));
+    const qmap = new Map(CONFIG.questions.map(q=>[q.id,q]));
+    for(const {questionId, value} of answers){
+      const q = qmap.get(questionId); if(!q) continue;
+      if(q.type==='mc'){
+        const opt = (q.options||[]).find(o=>o.text===value);
+        if(opt && opt.scores){ for(const [id,pts] of Object.entries(opt.scores)){ if(scores[id]!=null) scores[id]+=pts; } }
+      } else if(q.type==='slider'){
+        const v = Number(value);
+        // map defined for 1,3,5 — interpolate simple nearest bucket
+        let bucket = 1; if(v>=5) bucket=5; else if(v>=3) bucket=3;
+        const m = (q.map||{})[bucket]; if(m){ for(const [id,pts] of Object.entries(m)){ if(scores[id]!=null) scores[id]+=pts; } }
+      }
+    }
+    return scores;
+  };
+
+  const topArchetypes = (scores, n=2)=>{
+    return Object.entries(scores).sort((a,b)=> b[1]-a[1]).slice(0,n).map(([id])=> CONFIG.archetypes.find(a=>a.id===id));
+  };
+
+  // --- Screens
+  const renderIntro = ()=>{
+    app.innerHTML='';
+    const wrap = el('div', {class:'intro'});
+    wrap.append(
+      el('h1', {}, 'Small Business Automation Quiz'),
+      el('p', {}, CONFIG.meta.intro),
+      el('div', {class:'stack'},
+        el('button', {class:'btn', onClick: ()=>{ startQuiz(); }}, 'Let’s Get Started')
+      )
+    );
+    app.append(wrap);
+  };
+
+  const renderQuestion = ()=>{
+    const q = currentQuestion();
+    app.innerHTML='';
+    const progress = el('div',{class:'progress'}, el('span',{style:{width: progressPct()+"%"}}));
+    const title = el('h2',{}, q.prompt);
+    const wrap = el('div',{class:'q-wrap', role:'group', 'aria-label':q.prompt});
+
+    if(q.type==='mc'){
+      (q.options||[]).forEach(o=>{
+        const b = el('button',{class:'opt', role:'button', 'aria-pressed':'false', onClick:()=>{ addAnswer(q.id, o.text); }}, o.text);
+        wrap.append(b);
+      });
+    } else if(q.type==='slider'){
+      let current = 3;
+      const range = el('input',{type:'range', min:'1', max:'5', step:'1', value:String(current), onInput:(e)=>{ current = Number(e.target.value); }, onChange:()=>{ addAnswer(q.id, current); }});
+      const labels = el('div',{class:'slider-labels'}, 'Never', el('span'), 'Sometimes', el('span'), 'Always');
+      const row = el('div',{class:'slider-row'}, range, labels);
+      wrap.append(row);
+    } else if(q.type==='open'){
+      const ta = el('textarea',{rows:'4', placeholder:'Type here (optional)...', onInput:(e)=>{ openText = e.target.value; saveState(); }});
+      const btn = el('button',{class:'btn', onClick:()=>{ addAnswer(q.id, openText || ''); }}, 'Continue');
+      wrap.append(ta, btn);
+    }
+
+    const meta = el('p',{class:'progress-text'}, `Question ${Math.min(idx+1, order.length)} of ${order.length}`);
+    app.append(progress, title, wrap, meta);
+  };
+
+  const showResultsPreview = ()=>{
+    fireEvent('quizCompleted');
+    const scores = calculateScores();
+    const top2 = topArchetypes(scores, 2).filter(Boolean);
+
+    app.innerHTML='';
+    const h = el('h2',{}, 'Your Top Matches');
+
+    const blocks = top2.map(a=>{
+      const box = el('div',{class:'arch'});
+      box.append(
+        el('h3',{}, a.name),
+        el('p',{class:'tagline'}, a.tagline),
+        el('p',{}, el('strong',{}, 'Why this matters for you: '), a.why)
+      );
+      return box;
+    });
+
+    const primary = el('button',{class:'btn', onClick:()=>{ renderEmailGate(scores, top2); }}, CONFIG.emailGate.submit);
+    const secondary = el('a',{href:CONFIG.meta.bookingUrl, target:'_blank', rel:'noopener noreferrer', class:'btn secondary'}, 'Book Your Story Call');
+
+    const share = renderShare();
+
+    app.append(h, ...blocks, el('div',{class:'stack'}, primary, secondary), share);
+  };
+
+  const renderShare = ()=>{
+    const wrap = el('div',{class:'share', role:'region', 'aria-label':'Share this quiz'});
+    wrap.append(el('p',{}, 'Found this helpful? Share it with a friend!'));
+    const copy = el('button',{class:'btn secondary', onClick:async()=>{
+      try{ await navigator.clipboard.writeText(location.href); copy.innerText='Link copied!'; setTimeout(()=>copy.innerText='Copy Link',1500);}catch{ copy.innerText='Copy failed'; setTimeout(()=>copy.innerText='Copy Link',1500);} }}, 'Copy Link');
+    const email = el('button',{class:'btn secondary', onClick:()=>{
+      const subject = encodeURIComponent('Check out this helpful automation quiz');
+      const body = encodeURIComponent(`Hey,\n\nI thought you might find this automation quiz helpful:\n${location.href}\n\nGive it a try!`);
+      location.href = `mailto:?subject=${subject}&body=${body}`;
+    }}, 'Email Share');
+    const row = el('div',{class:'buttons'}, copy, email);
+    wrap.append(row);
+    return wrap;
+  };
+
+  const renderEmailGate = (scores, top2)=>{
+    app.innerHTML='';
+    const h = el('h2',{}, 'Email me my full plan');
+    const form = el('form',{noValidate:true, onSubmit: async (e)=>{
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries());
+      // validate
+      let ok=true; form.querySelectorAll('.err').forEach(n=>n.remove());
+      for(const f of CONFIG.emailGate.fields){
+        const v = f.type==='checkbox' ? form[f.name].checked : (data[f.name]||'').toString().trim();
+        if(f.required){
+          if((f.type==='checkbox' && !form[f.name].checked) || v==='') { ok=false; form[f.name].after(el('div',{class:'err'}, `${f.label} is required`)); }
+          if(ok && f.type==='email' && !/\S+@\S+\.\S+/.test(v)){ ok=false; form[f.name].after(el('div',{class:'err'}, `Please enter a valid email address`)); }
+          if(ok && f.type==='tel' && v && !/^\+?[0-9\s\-()]{7,}$/.test(v)){ ok=false; form[f.name].after(el('div',{class:'err'}, `Please enter a valid phone number`)); }
+        }
+      }
+      if(!ok) return;
+
+      // Build payload (open-ended kept internal; not echoed in email template by default)
+      const payload = {
+        lead: data,
+        quiz: { answers, openEnded: openText, scores },
+        meta: { page: location.href, ts: Date.now(), ua: navigator.userAgent }
+      };
+
+      try{
+        // Replace with your live n8n webhook URL
+        const WEBHOOK = 'YOUR_N8N_WEBHOOK_URL';
+        if(!WEBHOOK || WEBHOOK.includes('YOUR_N8N_WEBHOOK_URL')){
+          console.warn('Set your n8n webhook URL in the HTML file.');
+        } else {
+          await fetch(WEBHOOK,{ method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)});
+        }
+        fireEvent('emailSubmitted');
+        showComplete();
+      }catch(err){
+        form.prepend(el('div',{class:'err'}, 'Submission failed. Please try again.'));
+      }
+    }});
+
+    // fields
+    for(const f of CONFIG.emailGate.fields){
+      const label = el('label',{}, `${f.label}${f.required?'*':''}`);
+      let input;
+      if(f.type==='dropdown'){
+        input = el('select',{name:f.name, required:f.required});
+        input.append(el('option',{value:'', disabled:true, selected:true}, 'Select an option'));
+        f.options.forEach(o=> input.append(el('option',{value:o}, o)) );
+      } else if(f.type==='checkbox'){
+        input = el('input',{type:'checkbox', name:f.name, required:f.required});
+        label.prepend(input, ' ');
+        form.append(label);
+        continue;
+      } else {
+        input = el('input',{type:f.type, name:f.name, required:f.required});
+      }
+      form.append(label, input);
+    }
+
+    form.append(el('p',{class:'privacy-text'}, CONFIG.emailGate.privacy));
+    form.append(el('button',{type:'submit', class:'btn'}, CONFIG.emailGate.submit));
+
+    // After-capture feedback poll (👍 / 👎)
+    const feedback = el('div',{class:'share', style:{display:'none'}}, el('p',{}, 'Was this helpful?'));
+    const up = el('button',{class:'btn secondary', onClick:()=>{ feedback.append(el('span',{}, ' Thanks!')); up.disabled=down.disabled=true; }}, '👍 Helpful');
+    const down = el('button',{class:'btn secondary', onClick:()=>{ feedback.append(el('span',{}, ' We’ll improve it.')); up.disabled=down.disabled=true; }}, '👎 Needs work');
+    feedback.append(el('div',{class:'buttons'}, up, down));
+
+    app.append(h, form, feedback);
+
+    // Reveal poll only after submission
+    function showComplete(){ app.innerHTML='';
+      const wrap = el('div',{class:'complete'});
+      wrap.append(checkmarkSvg());
+      app.append(wrap);
+      localStorage.removeItem(STORAGE_KEY);
+    }
+  };
+
+  const checkmarkSvg = ()=>{
+    const svgNS='http://www.w3.org/2000/svg';
+    const svg=document.createElementNS(svgNS,'svg');
+    svg.setAttribute('viewBox','0 0 52 52'); svg.setAttribute('width','96'); svg.setAttribute('height','96');
+    const circle=document.createElementNS(svgNS,'circle');
+    circle.setAttribute('cx','26'); circle.setAttribute('cy','26'); circle.setAttribute('r','25');
+    circle.setAttribute('fill','none'); circle.setAttribute('stroke','var(--teal)'); circle.setAttribute('stroke-width','2');
+    const path=document.createElementNS(svgNS,'path');
+    path.setAttribute('fill','none'); path.setAttribute('stroke','var(--teal)'); path.setAttribute('stroke-width','4');
+    path.setAttribute('stroke-linecap','round'); path.setAttribute('stroke-linejoin','round');
+    path.setAttribute('d','M14 27l7 7 16-16');
+    // animate via CSS
+    const style=el('style',{html:`.circle{stroke-dasharray:157;stroke-dashoffset:157;animation:dash .8s forwards ease-out}.check{stroke-dasharray:48;stroke-dashoffset:48;animation:dash .3s .8s forwards ease-out}@keyframes dash{to{stroke-dashoffset:0}}`});
+    circle.setAttribute('class','circle'); path.setAttribute('class','check');
+    svg.append(circle,path,style); return svg;
+  };
+
+  // --- Boot
+  (function init(){
+    document.addEventListener('click', clickSfx, {once:true}); // iOS unlock
+    if(resumeIfAny()){
+      const banner = el('div',{class:'share'}, el('p',{}, 'Welcome back — want to resume where you left off?'));
+      const yes = el('button',{class:'btn', onClick:()=>{ render(); }}, 'Resume');
+      const no = el('button',{class:'btn secondary', onClick:()=>{ localStorage.removeItem(STORAGE_KEY); renderIntro(); }}, 'Start Over');
+      app.innerHTML=''; app.append(banner, el('div',{class:'stack'}, yes, no));
+    } else { renderIntro(); }
+  })();
+
+  function render(){ if(!started) return renderIntro(); if(idx<order.length) return renderQuestion(); return showResultsPreview(); }
+
+  </script>
 </body>
 </html>
