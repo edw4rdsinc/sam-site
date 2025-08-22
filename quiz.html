@@ -101,7 +101,7 @@
 
   // --- Config (embedded for single-file portability)
   const CONFIG = {
-    meta:{ title:"Small Business Automation Quiz", intro:"You’ll see your top matches right away, and we’ll send your full personalized plan by email. Takes about 3 minutes.", startText:"Let’s Get Started", bookingUrl:"https://api.leadconnectorhq.com/widget/booking/C3oepnz7Imdc7eeKkS52", plausible:true },
+    meta:{ title:"Small Business Automation Quiz", intro:"You’ll see your top matches right away, and we’ll send your full personalized plan by email. Takes about 3 minutes.", startText:"Let’s Get Started", bookingUrl:"https://calendly.com/sam-edw4rds/story-call", plausible:true },
     archetypes:[
       {id:'breathing_room', name:'Breathing Room', tagline:"You’ve been running on fumes. Let’s clear the clutter so you can finally exhale.", why:"You need simple wins to clear overwhelm and reclaim your time.", autos:["Automated calendar reminders","Invoice follow‑ups","One‑click rebooking"]},
       {id:'momentum_builder', name:'Momentum Builder', tagline:"Your wheels are turning — now let’s pick up speed without burning out.", why:"Scaling effort without adding stress keeps you moving forward.", autos:["Lead nurturing emails","Instant quote replies","Social post scheduling"]},
@@ -322,10 +322,10 @@
     const wrap = el('div',{class:'share', role:'region', 'aria-label':'Share this quiz'});
     wrap.append(el('p',{}, 'Found this helpful? Share it with a friend!'));
     const copy = el('button',{class:'btn secondary', onClick:async()=>{
-      try{ await navigator.clipboard.writeText(location.href); copy.innerText='Link copied!'; setTimeout(()=>copy.innerText='Copy Link',1500);}catch{ copy.innerText='Copy failed'; setTimeout(()=>copy.innerText='Copy Link',1500);} }}, 'Copy Link');
+      try{ await navigator.clipboard.writeText('www.edw4rds.com/quiz.html'); copy.innerText='Link copied!'; setTimeout(()=>copy.innerText='Copy Link',1500);}catch{ copy.innerText='Copy failed'; setTimeout(()=>copy.innerText='Copy Link',1500);} }}, 'Copy Link');
     const email = el('button',{class:'btn secondary', onClick:()=>{
       const subject = encodeURIComponent('Check out this helpful automation quiz');
-      const body = encodeURIComponent(`Hey,\n\nI thought you might find this automation quiz helpful:\n${location.href}\n\nGive it a try!`);
+      const body = encodeURIComponent(`Hey,\n\nI thought you might find this automation quiz helpful:\nwww.edw4rds.com/quiz.html\n\nGive it a try!`);
       location.href = `mailto:?subject=${subject}&body=${body}`;
     }}, 'Email Share');
     const row = el('div',{class:'buttons'}, copy, email);
@@ -360,7 +360,7 @@
 
       try{
         // Replace with your live n8n webhook URL
-        const WEBHOOK = 'YOUR_N8N_WEBHOOK_URL';
+        const WEBHOOK = 'https://n8n.edw4rds.com/webhook/859a1652-9615-4488-b5ea-adefb7b4e3d9';
         if(!WEBHOOK || WEBHOOK.includes('YOUR_N8N_WEBHOOK_URL')){
           console.warn('Set your n8n webhook URL in the HTML file.');
         } else {
