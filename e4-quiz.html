@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E4 - Automation Diagnostician</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --teal: #009688;
+            --slate: #37474F;
+            --cream: #F5F1E7;
+            --muted: #6b7280;
+            --radius: 14px;
+            --font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            font-family: var(--font-family);
+            background-color: var(--cream);
+            color: var(--slate);
+        }
+
+        #e4-chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 90%;
+            max-width: 400px;
+            height: 70vh;
+            max-height: 600px;
+            background-color: #ffffff;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+            transform: translateY(20px) scale(0.95);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        #e4-chat-widget.active {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .chat-header {
+            padding: 16px 20px;
+            background-color: var(--slate);
+            color: #fff;
+            border-bottom: 1px solid #e5e7eb;
+            flex-shrink: 0;
+        }
+
+        .chat-header h3 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .chat-header p {
+            margin: 2px 0 0;
+            font-size: 13px;
+            opacity: 0.8;
+            font-weight: 400;
+        }
+
+        .message-container {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message {
+            margin-bottom: 12px;
+            max-width: 85%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message .bubble {
+            padding: 12px 16px;
+            border-radius: var(--radius);
+            line-height: 1.4;
+            font-size: 15px;
+        }
+
+        .message.bot {
+            align-self: flex-start;
+        }
+
+        .message.bot .bubble {
+            background-color: #f3f4f6;
+            color: var(--slate);
+            border-bottom-left-radius: 4px;
+        }
+
+        .message.user {
+            align-self: flex-end;
+        }
+        
+        .message.user .bubble {
+            background-color: var(--teal);
+            color: #fff;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .message.typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 12px 0;
+        }
+
+        .message.typing-indicator .dot {
+            width: 8px;
+            height: 8px;
+            background-color: #ccc;
+            border-radius: 50%;
+            animation: typing 1.2s infinite ease-in-out;
+        }
+        .message.typing-indicator .dot:nth-child(2) { animation-delay: 0.2s; }
+        .message.typing-indicator .dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-4px); }
+        }
+
+        .choices-container {
+            padding: 0 20px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .choice-btn {
+            appearance: none;
+            width: 100%;
+            text-align: left;
+            padding: 12px 16px;
+            border: 1.5px solid #e5e7eb;
+            border-radius: 12px;
+            background: #fff;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.2s;
+        }
+
+        .choice-btn:hover {
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px rgba(0, 150, 136, 0.1);
+        }
+
+        .input-container {
+            border-top: 1px solid #e5e7eb;
+            padding: 12px;
+            display: flex;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .input-container input {
+            flex-grow: 1;
+            border: 1.5px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 10px 12px;
+            font: inherit;
+            font-size: 15px;
+            transition: all 0.2s;
+        }
+
+        .input-container input:focus {
+            outline: none;
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px rgba(0, 150, 136, 0.25);
+        }
+
+        .chat-toggle-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--teal);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s;
+            z-index: 9998;
+        }
+        .chat-toggle-btn:hover {
+            transform: scale(1.05);
+        }
+        .chat-toggle-btn svg {
+            width: 32px;
+            height: 32px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- The Chat Widget -->
+    <div id="e4-chat-widget">
+        <div class="chat-header">
+            <h3>E4 Automation Diagnostician</h3>
+            <p>from The EDW4RDS PLATFORM</p>
+        </div>
+        <div class="message-container" id="message-container">
+            <!-- Messages will be injected here by JavaScript -->
+        </div>
+        <div class="choices-container" id="choices-container">
+            <!-- Choices (buttons) will be injected here by JavaScript -->
+        </div>
+        <div class="input-container">
+            <input type="text" id="user-input" placeholder="Type your answer here...">
+        </div>
+    </div>
+
+    <!-- The button to open/close the widget -->
+    <button id="chat-toggle-btn" class="chat-toggle-btn" aria-label="Toggle Chat">
+        <!-- Chat Icon SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.94-.416-1.258a4.48 4.48 0 00-5.163-3.26A4.48 4.48 0 002.18 16.516c.308.31.732.483 1.15.483a5.27 5.27 0 013.4-1.243 5.972 5.972 0 01.787-.075A9.765 9.765 0 0112 3c4.97 0 9 3.694 9 8.25z" />
+        </svg>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- CONFIGURATION ---
+            const N8N_WEBHOOK_URL = 'https://n8n.edw4rds.com/webhook/1017ab99-4640-4bf4-93fa-c14046435760';
+
+            // --- DOM Elements ---
+            const chatWidget = document.getElementById('e4-chat-widget');
+            const toggleBtn = document.getElementById('chat-toggle-btn');
+            const messageContainer = document.getElementById('message-container');
+            const choicesContainer = document.getElementById('choices-container');
+            const userInput = document.getElementById('user-input');
+
+            // --- State Management ---
+            let conversationId = `conv_${Date.now()}_${Math.random().toString(36).substring(2)}`;
+
+            // --- UI Functions ---
+            const toggleChat = (forceOpen = null) => {
+                const isActive = chatWidget.classList.contains('active');
+                const shouldBeActive = forceOpen === null ? !isActive : forceOpen;
+                chatWidget.classList.toggle('active', shouldBeActive);
+            };
+
+            const addMessage = (text, sender, isLoading = false) => {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${sender}`;
+
+                if (isLoading) {
+                    messageDiv.classList.add('typing-indicator');
+                    messageDiv.innerHTML = '<div class="dot"></div><div class="dot"></div><div class="dot"></div>';
+                } else {
+                    const bubbleDiv = document.createElement('div');
+                    bubbleDiv.className = 'bubble';
+                    bubbleDiv.textContent = text;
+                    messageDiv.appendChild(bubbleDiv);
+                }
+                
+                messageContainer.appendChild(messageDiv);
+                messageContainer.scrollTop = messageContainer.scrollHeight;
+                return messageDiv;
+            };
+
+            const showChoices = (choices) => {
+                choicesContainer.innerHTML = '';
+                if (!choices || choices.length === 0) return;
+
+                choices.forEach(choice => {
+                    const button = document.createElement('button');
+                    button.className = 'choice-btn';
+                    button.textContent = choice.text; 
+                    button.onclick = () => onUserChoice(choice.value || choice.text); 
+                    choicesContainer.appendChild(button);
+                });
+            };
+
+            const clearInputs = () => {
+                choicesContainer.innerHTML = '';
+                userInput.value = '';
+                userInput.disabled = true;
+            };
+
+            // --- Logic Functions ---
+            const onUserInput = async (text) => {
+                if (!text.trim()) return;
+                
+                addMessage(text, 'user');
+                clearInputs();
+                
+                const typingIndicator = addMessage('', 'bot', true);
+                const response = await callN8nBackend({ type: 'text', payload: text });
+
+                if (typingIndicator) messageContainer.removeChild(typingIndicator);
+                handleN8nResponse(response);
+            };
+            
+            const onUserChoice = async (value) => {
+                const choiceText = (tempState.choices.find(c => c.value === value) || {}).text || value;
+                addMessage(choiceText, 'user');
+                clearInputs();
+
+                const typingIndicator = addMessage('', 'bot', true);
+                const response = await callN8nBackend({ type: 'choice', payload: value });
+                
+                if (typingIndicator) messageContainer.removeChild(typingIndicator);
+                handleN8nResponse(response);
+            };
+
+            const callN8nBackend = async (data) => {
+                if (!N8N_WEBHOOK_URL || N8N_WEBHOOK_URL.includes('PASTE')) {
+                    console.error("n8n Webhook URL is not configured.");
+                    return { messages: [{ text: "Error: The backend is not configured. Please contact support." }], choices: [] };
+                }
+                try {
+                    const response = await fetch(N8N_WEBHOOK_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ ...data, conversationId })
+                    });
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return await response.json();
+                } catch (error) {
+                    console.error("Error calling n8n backend:", error);
+                    return { messages: [{ text: "Sorry, I'm having trouble connecting to my brain right now. Please try again in a moment." }], choices: [] };
+                }
+            };
+            
+            let tempState = { choices: [] };
+
+            const handleN8nResponse = (response) => {
+                (response.messages || []).forEach(msg => {
+                    setTimeout(() => addMessage(msg.text, 'bot'), 500);
+                });
+                
+                tempState.choices = response.choices || [];
+                showChoices(tempState.choices);
+                
+                if (tempState.choices.length === 0) {
+                   userInput.disabled = false;
+                   userInput.focus();
+                }
+            };
+            
+            const startConversation = async () => {
+                clearInputs();
+                const typingIndicator = addMessage('', 'bot', true);
+                const response = await callN8nBackend({ type: 'start' });
+                if (typingIndicator) messageContainer.removeChild(typingIndicator);
+                handleN8nResponse(response);
+            };
+
+            // --- Event Listeners ---
+            toggleBtn.addEventListener('click', () => toggleChat());
+            userInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !userInput.disabled) onUserInput(e.target.value);
+            });
+
+            // --- Initial Kickoff ---
+            setTimeout(() => toggleChat(true), 1000); 
+            startConversation();
+        });
+    </script>
+</body>
+</html>
