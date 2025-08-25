@@ -343,11 +343,13 @@
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
                     const jsonResponse = await response.json();
+                    console.log('Raw response from n8n:', jsonResponse);
                     
-                    // --- DEBUGGING LINE ---
-                    console.log('Response from n8n:', jsonResponse);
+                    // --- THE FIX: Unwrap the data from n8n's format ---
+                    const extractedData = jsonResponse[0].json;
                     
-                    return jsonResponse;
+                    return extractedData;
+
                 } catch (error) {
                     console.error("Error calling n8n backend:", error);
                     return { messages: [{ text: "Sorry, I'm having trouble connecting to my brain right now. Please try again in a moment." }], choices: [] };
